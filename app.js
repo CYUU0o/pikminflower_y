@@ -35,15 +35,14 @@ function parse() {
 function createMarker(p, i){
     let m = L.marker(p, {icon:createIcon(i+1)}).addTo(map);
 
-    // 點擊 Marker 顯示選單
+    // 點選 Marker 顯示選單
     m.on("click", ()=>{
-        // 如果已經是選中的 marker，就先重置
+        removeMarkerMenu();
         if(selectedMarker && selectedMarker !== m){
             resetMarker(selectedMarker);
         }
         selectedMarker = m;
-
-        m._icon.classList.add("selected"); // 選中深藍
+        m._icon.classList.add("selected");
         showMarkerMenu(m);
     });
 
@@ -81,7 +80,6 @@ function drawLine(fit=false){
     line = L.polyline(pts,{color:"red"}).addTo(map);
     if(fit && pts.length>0) map.fitBounds(line.getBounds());
 }
-
 function updateLine(){ drawLine(); updateStats(); }
 
 /* ===============================
@@ -91,6 +89,7 @@ function clearMap(){
     markers.forEach(m=>map.removeLayer(m));
     markers=[];
     if(line) map.removeLayer(line);
+    removeMarkerMenu();
     selectedMarker=null;
 }
 
@@ -129,12 +128,12 @@ function refreshMarkers(){
 }
 
 /* ===============================
-   選單功能：固定在 Marker 下方
+   選單功能：移動 / 上移 / 下移 / 刪除
    =============================== */
 function showMarkerMenu(m){
     removeMarkerMenu();
 
-    let menu = L.DomUtil.create('div', 'marker-menu');
+    let menu = L.DomUtil.create('div', 'marker-menu marker-popup');
     menu.innerHTML = `
         <button onclick="enableMove(${markers.indexOf(m)})">移動</button>
         <button onclick="moveUp(${markers.indexOf(m)})">前移</button>
@@ -143,23 +142,25 @@ function showMarkerMenu(m){
     `;
     document.body.appendChild(menu);
 
-    // 固定在 Marker 下方
+    // 計算 marker 畫面位置
     let pos = map.latLngToContainerPoint(m.getLatLng());
-    menu.style.position="absolute";
-    menu.style.left = (pos.x - menu.offsetWidth/2) + "px";
-    menu.style.top  = (pos.y + 25) + "px"; // marker 下方
+    let mapRect = map.getContainer().getBoundingClientRect();
+    menu.style.position = 'absolute';
+    menu.style.left = mapRect.left + pos.x + 'px';
+    menu.style.top  = mapRect.top  + pos.y + 25 + 'px';
+    menu.style.zIndex = 1000;
 
-    m.menuDiv = menu;
-
-    // 點選畫面其他地方關閉選單
+    // 點選空白處移除選單
     function removeHandler(e){
         if(!menu.contains(e.target)){
             removeMarkerMenu();
-            selectedMarker=null; // 解除鎖定，讓同一 marker 可再次點
             document.removeEventListener("click", removeHandler);
+            resetMarker(m); // 解除選中，保證可再次點擊
         }
     }
     setTimeout(()=>document.addEventListener("click", removeHandler),10);
+
+    m.menuDiv = menu;
 }
 
 function removeMarkerMenu(){
@@ -171,37 +172,37 @@ function removeMarkerMenu(){
    =============================== */
 function enableMove(i){
     let m = markers[i];
-    removeMarkerMenu(); // 選單消失
-    resetMarker(m);
-    selectedMarker = m;
+    removeMarkerMenu();
+    resetMarker(selectedMarker);
+    selectedMarker = null;
 
-    m._icon.classList.add("moving"); // 橘色
+    m._icon.classList.add("moving");   // 拖曳橘色
     m.dragging.enable();
 
     m.once("dragend", ()=>{
         m.dragging.disable();
         m._icon.classList.remove("moving");
-        m._icon.classList.add("selected"); // 回到選中藍
         refreshMarkers();
-        selectedMarker = null; // 解除鎖定，讓同一 marker 可再次點
     });
 }
 
 /* ===============================
-   Marker 上下移動 / 刪除
+   Marker 上下移動
    =============================== */
 function moveUp(i){
     if(i===0) return;
     [markers[i-1], markers[i]] = [markers[i], markers[i-1]];
     refreshMarkers();
 }
-
 function moveDown(i){
     if(i===markers.length-1) return;
     [markers[i], markers[i+1]] = [markers[i+1], markers[i]];
     refreshMarkers();
 }
 
+/* ===============================
+   刪除 Marker
+   =============================== */
 function deletePoint(i){
     map.removeLayer(markers[i]);
     markers.splice(i,1);
@@ -216,6 +217,7 @@ function resetMarker(m){
         m._icon.classList.remove("moving");
         m._icon.classList.remove("selected");
     }
+    selectedMarker = null;
 }
 
 /* ===============================
@@ -242,7 +244,6 @@ function calcDistance(){
     }
     return d/1000;
 }
-
 function updateStats(){
     document.getElementById("count").innerText = markers.length;
     let dist = calcDistance();
@@ -301,7 +302,6 @@ function importGPX(){
     };
     reader.readAsText(file);
 }
-
 function selectGPX(){ document.getElementById("gpxFile").click(); }
 
 document.getElementById("gpxFile").addEventListener("change", importGPX);
