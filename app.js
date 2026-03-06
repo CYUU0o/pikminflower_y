@@ -8,6 +8,9 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
     attribution:"© OpenStreetMap"
 }).addTo(map);
 
+map.on("click", function(){
+    removeMarkerMenu();
+});
 
 /* ===============================
    全域變數
@@ -81,6 +84,10 @@ function showMarkerMenu(m){
     <button onclick="deletePoint(${index})">刪除</button>
     `;
 
+   menu.addEventListener("click", function(e){
+    e.stopPropagation();
+});
+
     map.getContainer().appendChild(menu);
 
     let pos = map.latLngToContainerPoint(m.getLatLng());
@@ -98,7 +105,16 @@ function showMarkerMenu(m){
 =============================== */
 
 function removeMarkerMenu(){
-    document.querySelectorAll(".marker-menu").forEach(e=>e.remove());
+
+    if(selectedMarker && selectedMarker.menuDiv){
+        selectedMarker.menuDiv.remove();
+        selectedMarker.menuDiv = null;
+    }
+
+    if(selectedMarker){
+        resetMarker(selectedMarker);
+        selectedMarker = null;
+    }
 }
 
 
@@ -518,6 +534,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
