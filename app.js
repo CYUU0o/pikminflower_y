@@ -71,7 +71,6 @@ function createMarker(p,i){
 =============================== */
 
 function showMarkerMenu(m){
-
     removeMarkerMenu();
 
     let index = markers.indexOf(m);
@@ -98,7 +97,6 @@ function showMarkerMenu(m){
     menu.style.zIndex = 9999;
 
 }
-
 
 /* ===============================
    刪除選單
@@ -534,6 +532,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
