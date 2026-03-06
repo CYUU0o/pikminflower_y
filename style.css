@@ -42,7 +42,10 @@ textarea {
 }
 
 button {
-    padding: 14px 23px;
+    display: flex;             /* 使用 Flexbox */
+    align-items: center;       /* 垂直置中 */
+    justify-content: center;   /* 水平置中 */
+    padding: 10px 20px;        /* 調整內距，看起來舒適 */
     font-size: 16px;
     border-radius: 6px;
     border: none;
@@ -50,6 +53,8 @@ button {
     transition: 0.2s;
     font-family: "GenSenMaruGothic", Arial, sans-serif;
     font-weight: bold;
+    line-height: normal;       /* 避免文字偏上 */
+}
 }
 
 button:hover {opacity: 0.8;}
@@ -155,7 +160,7 @@ button:hover {opacity: 0.8;}
     width:20px;
     height:20px;
     border-radius:50%;
-    background:#6596ba;
+    background:#6596ba;     /* 預設藍色 */
     border:3px solid white;
     color:white;
     font-weight:bold;
@@ -164,12 +169,18 @@ button:hover {opacity: 0.8;}
     align-items: center;
     justify-content: center;
     font-family: "GenSenMaruGothic", Arial, sans-serif;
+    transition: background 0.2s;
 }
 
-/* Marker 可拖曳狀態顏色 */
+/* Marker 被選擇時（點選） */
+.circle-marker.selected{
+    background:#345885;   /* 深藍色 */
+}
+
+/* Marker 可拖曳狀態 */
 .circle-marker.moving{
-    background:#ffeb3b;   /* 黃色 */
-    color:black;
+    background:#c96e51;   /* 橘色 */
+    color:white;
     border-color:white;
 }
 
@@ -203,3 +214,4 @@ body{
     max-height:40vh;
 }
 }
+
