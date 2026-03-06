@@ -65,19 +65,15 @@ button:hover {opacity: 0.8;}
     align-items: center;
 }
 
-.circle-marker {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #e53935;
-    border: 2px solid white;
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "GenSenMaruGothic", Arial, sans-serif;
+.circle-marker{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:#ff5252;
+    border:3px solid white;
+    color:white;
+    font-weight:bold;
+    font-size:13px;
 }
 
 .panel {margin: 10px 0;}
@@ -89,11 +85,12 @@ button:hover {opacity: 0.8;}
 }
 
 #map{
+    display:block;
     height:45vh;
 }
 
 #list{
-    max-height:35vh;
+    max-height:40vh;
 }
 
 textarea{
@@ -101,3 +98,4 @@ textarea{
 }
 
 }
+
