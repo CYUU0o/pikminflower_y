@@ -182,9 +182,17 @@ function importGPX() {
         document.getElementById("coords").value = txt.trim();
         loadPoints();
     };
-    reader.readAsText(file);
+   reader.readAsText(file);
+}
+
+function selectGPX(){
+    document.getElementById("gpxFile").click();
+}
+
+document.getElementById("gpxFile").addEventListener("change", importGPX);
 }
 
 
 document.getElementById("speed").oninput = updateStats;
+
 
