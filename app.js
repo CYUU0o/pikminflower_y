@@ -36,11 +36,15 @@ function loadPoints() {
     updateStats();
 }
 
-function drawLine() {
+function drawLine(fit=false) {
+
     if(line) map.removeLayer(line);
     let pts = markers.map(m=>m.getLatLng());
     line = L.polyline(pts,{color:"red"}).addTo(map);
-    if(pts.length>0) map.fitBounds(line.getBounds());
+    if(fit && pts.length>0){
+        map.fitBounds(line.getBounds());
+    }
+
 }
 
 function updateLine(){ drawLine(); updateStats(); }
@@ -197,5 +201,6 @@ function selectGPX(){
 document.getElementById("gpxFile").addEventListener("change", importGPX);
 
 document.getElementById("speed").oninput = updateStats;
+
 
 
