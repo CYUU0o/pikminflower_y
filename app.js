@@ -1,51 +1,40 @@
 /* ===============================
    地圖初始化
-   =============================== */
+=============================== */
+
 let map = L.map("map").setView([23.7,121],7);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    attribution:"© OpenStreetMap"
+}).addTo(map);
+
 
 /* ===============================
    全域變數
-   =============================== */
+=============================== */
+
 let markers = [];
 let line = null;
 let selectedMarker = null;
 
-/* ===============================
-   解析座標輸入
-   =============================== */
-function parse(){
-    let text = document.getElementById("coords").value.trim();
-    let lines = text.split("\n");
-    let pts = [];
-
-    lines.forEach(l=>{
-        let p = l.trim().split(/[ ,]+/);
-        if(p.length>=2){
-            let lat=parseFloat(p[0]);
-            let lon=parseFloat(p[1]);
-            if(!isNaN(lat)&&!isNaN(lon)) pts.push([lat,lon]);
-        }
-    });
-
-    return pts;
-}
 
 /* ===============================
-   Marker icon
-   =============================== */
+   Marker Icon
+=============================== */
+
 function createIcon(n){
     return L.divIcon({
         className:"",
         html:`<div class="circle-marker">${n}</div>`,
-        iconSize:[22,22],
-        iconAnchor:[11,11]
+        iconSize:[22,22]
     });
 }
 
+
 /* ===============================
    建立 Marker
-   =============================== */
+=============================== */
+
 function createMarker(p,i){
 
     let m = L.marker(p,{
@@ -53,30 +42,150 @@ function createMarker(p,i){
         draggable:false
     }).addTo(map);
 
-    m.on("click", function(){
+    m.on("click",function(){
 
-    removeMarkerMenu();
+        removeMarkerMenu();
 
-    if(selectedMarker && selectedMarker !== m){
-        resetMarker(selectedMarker);
-    }
+        if(selectedMarker && selectedMarker !== m){
+            resetMarker(selectedMarker);
+        }
 
-    selectedMarker = m;
+        selectedMarker = m;
 
-    if(m._icon){
-        m._icon.classList.add("selected");
-    }
+        if(m._icon){
+            m._icon.classList.add("selected");
+        }
 
-    showMarkerMenu(m);
-
-});
+        showMarkerMenu(m);
+    });
 
     return m;
 }
 
+
+/* ===============================
+   顯示 Marker 選單
+=============================== */
+
+function showMarkerMenu(m){
+
+    removeMarkerMenu();
+
+    let index = markers.indexOf(m);
+
+    let menu = document.createElement("div");
+    menu.className = "marker-menu";
+
+    menu.innerHTML = `
+    <button onclick="enableMove(${index})">移動</button>
+    <button onclick="moveUp(${index})">前移</button>
+    <button onclick="moveDown(${index})">後移</button>
+    <button onclick="deletePoint(${index})">刪除</button>
+    `;
+
+    map.getContainer().appendChild(menu);
+
+    let pos = map.latLngToContainerPoint(m.getLatLng());
+
+    menu.style.position="absolute";
+    menu.style.left = (pos.x - 45) + "px";
+    menu.style.top  = (pos.y + 30) + "px";
+    menu.style.zIndex = 9999;
+
+}
+
+
+/* ===============================
+   刪除選單
+=============================== */
+
+function removeMarkerMenu(){
+    document.querySelectorAll(".marker-menu").forEach(e=>e.remove());
+}
+
+
+/* ===============================
+   Marker 可拖曳
+=============================== */
+
+function enableMove(i){
+
+    let m = markers[i];
+
+    removeMarkerMenu();
+
+    resetMarker(m);
+
+    selectedMarker = m;
+
+    m.dragging.enable();
+
+    if(m._icon){
+        m._icon.classList.add("moving");
+    }
+
+    m.once("dragend",function(){
+
+        m.dragging.disable();
+
+        resetMarker(m);
+
+        refreshMarkers();
+
+        selectedMarker = null;
+
+    });
+}
+
+
+/* ===============================
+   重置 Marker
+=============================== */
+
+function resetMarker(m){
+    if(m && m._icon){
+        m._icon.classList.remove("moving");
+        m._icon.classList.remove("selected");
+    }
+}
+
+
+/* ===============================
+   解析座標
+=============================== */
+
+function parse(){
+
+    let text = document.getElementById("coords").value.trim();
+
+    let lines = text.split("\n");
+
+    let pts=[];
+
+    lines.forEach(l=>{
+
+        let p = l.trim().split(/[ ,]+/);
+
+        if(p.length>=2){
+
+            let lat=parseFloat(p[0]);
+            let lon=parseFloat(p[1]);
+
+            if(!isNaN(lat)&&!isNaN(lon)){
+                pts.push([lat,lon]);
+            }
+        }
+
+    });
+
+    return pts;
+}
+
+
 /* ===============================
    載入座標
-   =============================== */
+=============================== */
+
 function loadPoints(){
 
     clearMap();
@@ -84,51 +193,84 @@ function loadPoints(){
     let pts = parse();
 
     pts.forEach((p,i)=>{
+
         let m = createMarker(p,i);
+
         markers.push(m);
+
     });
 
     drawLine(true);
+
     buildList();
+
     updateStats();
+
 }
 
-/* ===============================
-   畫線
-   =============================== */
-function drawLine(fit=false){
-
-    if(line) map.removeLayer(line);
-
-    let pts = markers.map(m=>m.getLatLng());
-
-    line = L.polyline(pts,{color:"red"}).addTo(map);
-
-    if(fit && pts.length>0) map.fitBounds(line.getBounds());
-}
-
-function updateLine(){
-    drawLine();
-    updateStats();
-}
 
 /* ===============================
    清空地圖
-   =============================== */
+=============================== */
+
 function clearMap(){
 
     markers.forEach(m=>map.removeLayer(m));
 
     markers=[];
 
-    if(line) map.removeLayer(line);
+    if(line){
+        map.removeLayer(line);
+    }
 
     selectedMarker=null;
 }
 
+
 /* ===============================
-   清單
-   =============================== */
+   畫線
+=============================== */
+
+function drawLine(fit=false){
+
+    if(line){
+        map.removeLayer(line);
+    }
+
+    let pts = markers.map(m=>m.getLatLng());
+
+    line = L.polyline(pts,{color:"red"}).addTo(map);
+
+    if(fit && pts.length>0){
+        map.fitBounds(line.getBounds());
+    }
+
+}
+
+
+/* ===============================
+   Marker刷新
+=============================== */
+
+function refreshMarkers(){
+
+    markers.forEach((m,i)=>{
+        m.setIcon(createIcon(i+1));
+    });
+
+    drawLine();
+
+    buildList();
+
+    updateStats();
+
+}
+
+
+/* ===============================
+   清單建立
+=============================== */
+
 function buildList(){
 
     let list = document.getElementById("list");
@@ -161,97 +303,11 @@ function buildList(){
 
 }
 
-/* ===============================
-   更新 marker
-   =============================== */
-function refreshMarkers(){
-
-    markers.forEach((m,i)=>{
-        m.setIcon(createIcon(i+1));
-    });
-
-    drawLine();
-    buildList();
-    updateStats();
-}
-
-/* ===============================
-   Marker 選單
-   =============================== */
-function showMarkerMenu(m){
-
-    removeMarkerMenu();
-
-    let menu = document.createElement("div");
-    menu.className="marker-menu";
-
-    menu.innerHTML=`
-    <button onclick="enableMove(${markers.indexOf(m)})">移動</button>
-    <button onclick="deletePoint(${markers.indexOf(m)})">刪除</button>
-    `;
-
-    map.getContainer().appendChild(menu);
-
-    let pos = map.latLngToContainerPoint(m.getLatLng());
-
-    menu.style.position="absolute";
-    menu.style.left = (pos.x - 40) + "px";
-    menu.style.top  = (pos.y + 25) + "px";
-
-    m.menuDiv = menu;
-
-    function closeMenu(e){
-
-        if(!menu.contains(e.target)){
-
-            removeMarkerMenu();
-
-            if(selectedMarker){
-                resetMarker(selectedMarker);
-            }
-
-            selectedMarker=null;
-            document.removeEventListener("click",closeMenu);
-        }
-    }
-
-    setTimeout(()=>document.addEventListener("click",closeMenu),10);
-}
-
-function removeMarkerMenu(){
-   
-    document.querySelectorAll(".marker-menu").forEach(e=>e.remove());
-}
-
-/* ===============================
-   Marker 移動
-   =============================== */
-function enableMove(i){
-
-    let m = markers[i];
-
-    removeMarkerMenu();
-
-    resetMarker(m);
-
-    selectedMarker = m;
-    m._icon.classList.add("moving");
-    m.dragging.enable();
-    m.once("dragend", function(){
-
-        m.dragging.disable();
-
-        resetMarker(m);
-        refreshMarkers();
-
-        selectedMarker = null;
-
-    });
-}
 
 /* ===============================
    上下移動
-   =============================== */
+=============================== */
+
 function moveUp(i){
 
     if(i===0) return;
@@ -270,53 +326,25 @@ function moveDown(i){
     refreshMarkers();
 }
 
+
 /* ===============================
    刪除
-   =============================== */
+=============================== */
+
 function deletePoint(i){
 
     map.removeLayer(markers[i]);
 
     markers.splice(i,1);
 
-    removeMarkerMenu();
-
     refreshMarkers();
 }
 
-/* ===============================
-   重置 marker
-   =============================== */
-function resetMarker(m){
-
-    if(m && m._icon){
-
-        m._icon.classList.remove("moving");
-        m._icon.classList.remove("selected");
-
-    }
-}
 
 /* ===============================
-   路徑閉合
-   =============================== */
-function autoClose(){
+   距離計算
+=============================== */
 
-    let pts = parse();
-
-    if(pts.length==0) return;
-
-    let s=pts[0];
-
-    let lat=(s[0]+0.000001).toFixed(6);
-    let lon=(s[1]+0.000001).toFixed(6);
-
-    document.getElementById("coords").value += `\n${lat},${lon}`;
-}
-
-/* ===============================
-   距離
-   =============================== */
 function calcDistance(){
 
     let d=0;
@@ -326,11 +354,17 @@ function calcDistance(){
         let a=markers[i-1].getLatLng();
         let b=markers[i].getLatLng();
 
-        d += map.distance(a,b);
+        d+=map.distance(a,b);
+
     }
 
     return d/1000;
 }
+
+
+/* ===============================
+   更新統計
+=============================== */
 
 function updateStats(){
 
@@ -340,16 +374,19 @@ function updateStats(){
 
     document.getElementById("distance").innerText = dist.toFixed(2);
 
-    let speed=parseFloat(document.getElementById("speed").value);
+    let speed = parseFloat(document.getElementById("speed").value);
 
-    let minutes=(dist/speed)*60;
+    let minutes = (dist/speed)*60;
 
     document.getElementById("time").innerText = minutes.toFixed(1);
+
 }
+
 
 /* ===============================
    GPX 匯出
-   =============================== */
+=============================== */
+
 function downloadGPX(){
 
     let pts = markers.map(m=>m.getLatLng());
@@ -370,9 +407,10 @@ ${trk}
 
     let filenameInput=document.getElementById("filename").value.trim();
 
-    let filename = filenameInput ?
-        (filenameInput.endsWith(".gpx") ? filenameInput : filenameInput+".gpx")
-        : `pikmingpx_${Date.now()}.gpx`;
+    let filename= filenameInput ?
+    (filenameInput.endsWith(".gpx")?filenameInput:filenameInput+".gpx")
+    :
+    "pikmin_route.gpx";
 
     let blob=new Blob([gpx],{type:"application/gpx+xml"});
 
@@ -384,15 +422,20 @@ ${trk}
     a.download=filename;
 
     document.body.appendChild(a);
+
     a.click();
+
     document.body.removeChild(a);
 
     URL.revokeObjectURL(url);
+
 }
+
 
 /* ===============================
    GPX 匯入
-   =============================== */
+=============================== */
+
 function importGPX(){
 
     let file=document.getElementById("gpxFile").files[0];
@@ -412,16 +455,14 @@ function importGPX(){
         let pts=[];
 
         xml.querySelectorAll("wpt,rtept,trkpt").forEach(n=>{
-
             pts.push([
                 parseFloat(n.getAttribute("lat")),
                 parseFloat(n.getAttribute("lon"))
             ]);
-
         });
 
-        if(pts.length==0){
-            alert("GPX 裡沒有點位");
+        if(pts.length===0){
+            alert("GPX 裡沒有座標");
             return;
         }
 
@@ -431,12 +472,14 @@ function importGPX(){
             txt+=p[0]+","+p[1]+"\n";
         });
 
-        document.getElementById("coords").value = txt.trim();
+        document.getElementById("coords").value=txt.trim();
 
         loadPoints();
+
     };
 
     reader.readAsText(file);
+
 }
 
 function selectGPX(){
@@ -444,14 +487,13 @@ function selectGPX(){
 }
 
 document.getElementById("gpxFile").addEventListener("change",importGPX);
-
 document.getElementById("speed").oninput=updateStats;
 
+
 /* ===============================
-   修正手機地圖尺寸
-   =============================== */
+   地圖尺寸修正
+=============================== */
+
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
-
-
