@@ -153,7 +153,7 @@ button:hover {opacity: 0.8;}
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #1e88e5;  /* 普通深藍 */
+    background: #5f8bb3;  /* 普通深藍 */
     border: 3px solid white;
     color: white;
     font-weight: bold;
@@ -164,11 +164,11 @@ button:hover {opacity: 0.8;}
 }
 
 .circle-marker.selected {
-    background: #0d47a1; /* 點選深藍 */
+    background: #3c5c8f; /* 點選深藍 */
 }
 
 .circle-marker.moving {
-    background: #ff7043; /* 拖曳橘色 */
+    background: #cc755a; /* 拖曳橘色 */
 }
 
 /* ===== 面板 ===== */
@@ -196,3 +196,4 @@ button:hover {opacity: 0.8;}
         max-height:40vh;
     }
 }
+
