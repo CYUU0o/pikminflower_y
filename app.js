@@ -109,9 +109,12 @@ function updateStats() {
 }
 
 function downloadGPX() {
+
     let pts = markers.map(m=>m.getLatLng());
     let trk="";
-    pts.forEach(p=>{trk+=`<rtept lat="${p.lat}" lon="${p.lng}"></rtept>\n`;});
+    pts.forEach(p=>{
+        trk += `<rtept lat="${p.lat}" lon="${p.lng}"></rtept>\n`;
+    });
 
     let gpx=`<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="GPX Tool" xmlns="http://www.topografix.com/GPX/1/1">
@@ -121,32 +124,44 @@ ${trk}
 </rte>
 </gpx>`;
 
-    let blob = new Blob([gpx], {type:"application/gpx+xml"});
-    let url = URL.createObjectURL(blob);
-    let a = document.createElement("a");
-    a.href = url;
-
+    // 先決定檔名
     let filenameInput = document.getElementById("filename").value.trim();
+    let filename;
 
-if(filenameInput){
-    if(!filenameInput.toLowerCase().endsWith(".gpx")){
-        filenameInput += ".gpx";
+    if(filenameInput){
+
+        if(!filenameInput.toLowerCase().endsWith(".gpx")){
+            filenameInput += ".gpx";
+        }
+
+        filename = filenameInput;
+
+    }else{
+
+        let now = new Date();
+        let Y = now.getFullYear();
+        let M = ("0"+(now.getMonth()+1)).slice(-2);
+        let D = ("0"+now.getDate()).slice(-2);
+        let h = ("0"+now.getHours()).slice(-2);
+        let m = ("0"+now.getMinutes()).slice(-2);
+
+        filename = `pikmingpx_${Y}-${M}-${D}_${h}-${m}.gpx`;
     }
 
-    a.download = filenameInput;
+    // 建立檔案
+    let blob = new Blob([gpx], {type:"application/gpx+xml"});
+    let url = URL.createObjectURL(blob);
 
-} else {
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
 
-    let now = new Date();
-    let Y = now.getFullYear();
-    let M = ("0"+(now.getMonth()+1)).slice(-2);
-    let D = ("0"+now.getDate()).slice(-2);
-    let h = ("0"+now.getHours()).slice(-2);
-    let m = ("0"+now.getMinutes()).slice(-2);
-
-    a.download = `pikmingpx_${Y}-${M}-${D}_${h}-${m}.gpx`;
-}
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+    
 }
 
 function importGPX() {
@@ -172,3 +187,4 @@ function importGPX() {
 
 
 document.getElementById("speed").oninput = updateStats;
+
