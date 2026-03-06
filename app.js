@@ -113,6 +113,11 @@ function downloadGPX() {
     let pts = markers.map(m=>m.getLatLng());
     let trk="";
     pts.forEach(p=>{
+
+
+
+
+        
         trk += `<rtept lat="${p.lat}" lon="${p.lng}"></rtept>\n`;
     });
 
@@ -190,8 +195,6 @@ function selectGPX(){
 }
 
 document.getElementById("gpxFile").addEventListener("change", importGPX);
-}
-
 
 document.getElementById("speed").oninput = updateStats;
 
