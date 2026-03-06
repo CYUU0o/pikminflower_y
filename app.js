@@ -127,17 +127,25 @@ ${trk}
     a.href = url;
 
     let filenameInput = document.getElementById("filename").value.trim();
-    if(filenameInput){
-        a.download = filenameInput;
-    } else {
-        let now = new Date();
-        let Y = now.getFullYear();
-        let M = ("0"+(now.getMonth()+1)).slice(-2);
-        let D = ("0"+now.getDate()).slice(-2);
-        let h = ("0"+now.getHours()).slice(-2);
-        let m = ("0"+now.getMinutes()).slice(-2);
-        a.download = `pikmingpx_${Y}-${M}-${D}_${h}-${m}.gpx`;
+
+if(filenameInput){
+    if(!filenameInput.toLowerCase().endsWith(".gpx")){
+        filenameInput += ".gpx";
     }
+
+    a.download = filenameInput;
+
+} else {
+
+    let now = new Date();
+    let Y = now.getFullYear();
+    let M = ("0"+(now.getMonth()+1)).slice(-2);
+    let D = ("0"+now.getDate()).slice(-2);
+    let h = ("0"+now.getHours()).slice(-2);
+    let m = ("0"+now.getMinutes()).slice(-2);
+
+    a.download = `pikmingpx_${Y}-${M}-${D}_${h}-${m}.gpx`;
+}
     a.click();
 }
 
@@ -161,5 +169,6 @@ function importGPX() {
     };
     reader.readAsText(file);
 }
+
 
 document.getElementById("speed").oninput = updateStats;
