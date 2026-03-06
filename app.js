@@ -187,8 +187,6 @@ function showMarkerMenu(m){
 
     menu.innerHTML=`
     <button onclick="enableMove(${markers.indexOf(m)})">移動</button>
-    <button onclick="moveUp(${markers.indexOf(m)})">前移</button>
-    <button onclick="moveDown(${markers.indexOf(m)})">後移</button>
     <button onclick="deletePoint(${markers.indexOf(m)})">刪除</button>
     `;
 
@@ -455,4 +453,5 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
