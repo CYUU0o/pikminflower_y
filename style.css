@@ -1,6 +1,6 @@
 @font-face {
     font-family: "GenSenMaruGothic";
-    src: url("fonts/GenSenMaruGothicTW-Heavy.ttf") format("truetype");
+    src: url("fonts/GenSenMaruGothicTW-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
@@ -86,4 +86,5 @@ button:hover {opacity: 0.8;}
     .layout {flex-direction: column;}
     #map {display: none;} /* 手機隱藏地圖 */
     #list {max-height: 65vh;}
+
 }
