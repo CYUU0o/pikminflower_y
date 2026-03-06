@@ -5,7 +5,11 @@
     font-style: normal;
 }
 
-body {
+body { 
+    background-image:url("bg.png");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
     font-family: "GenSenMaruGothic", Arial, sans-serif;
     max-width: 1200px;
     margin: auto;
@@ -98,6 +102,7 @@ button:hover {opacity: 0.8;}
 }
 
 }
+
 
 
 
