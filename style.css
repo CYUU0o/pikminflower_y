@@ -83,8 +83,21 @@ button:hover {opacity: 0.8;}
 .panel {margin: 10px 0;}
 
 @media(max-width:700px){
-    .layout {flex-direction: column;}
-    #map {display: none;} /* 手機隱藏地圖 */
-    #list {max-height: 65vh;}
+
+.layout{
+    flex-direction: column;
+}
+
+#map{
+    height:45vh;
+}
+
+#list{
+    max-height:35vh;
+}
+
+textarea{
+    height:100px;
+}
 
 }
