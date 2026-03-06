@@ -17,6 +17,13 @@ body {
     padding: 20px;
 }
 
+.description {
+    font-size: 10px;      /* 文字大小 */
+    color: #333;          /* 文字顏色 */
+    margin-top: 8px;      /* 與標題間距 */
+    line-height: 1.5;     /* 行距 */
+}
+
 /* ===== 文本輸入區 ===== */
 textarea {
     width: 100%; 
@@ -196,4 +203,5 @@ button:hover {opacity: 0.8;}
         max-height:40vh;
     }
 }
+
 
