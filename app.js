@@ -198,6 +198,23 @@ function refreshMarkers(){
 
         m.setIcon(createIcon(i+1));
 
+        m.off("click");
+
+        m.on("click",function(){
+
+            let menu = `
+            <div class="marker-menu">
+            <button onclick="enableMove(${i})">移動</button>
+            <button onclick="moveUp(${i})">前移</button>
+            <button onclick="moveDown(${i})">後移</button>
+            <button onclick="deletePoint(${i})">刪除</button>
+            </div>
+            `;
+
+            m.bindPopup(menu).openPopup();
+
+        });
+
     });
 
     drawLine();
@@ -493,4 +510,5 @@ window.addEventListener("load",function(){
     },200);
 
 });
+
 
