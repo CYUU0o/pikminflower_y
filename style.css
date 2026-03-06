@@ -123,31 +123,27 @@ button:hover {opacity: 0.8;}
 }
 
 /* ===== Marker 彈出選單按鈕 ===== */
-.marker-menu {
+.marker-popup .marker-menu {
     display: flex;
     gap: 4px;
     background: rgba(255,255,255,0.95);
     padding: 4px;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-    white-space: nowrap;
+    border-radius: 4px;
 }
 
-.marker-menu button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.marker-popup .marker-menu button {
     font-size: 12px;
-    padding: 3px 6px;
+    padding: 4px 8px;
     border-radius: 4px;
     border: none;
     background: #4cafef;
     color: white;
     cursor: pointer;
-    line-height: 1.2;
 }
 
-.marker-menu button:hover { background: #2196f3; }
+.marker-popup .marker-menu button:hover {
+    background: #2196f3;
+}
 
 /* ===== Marker 樣式 ===== */
 .circle-marker {
@@ -177,3 +173,4 @@ button:hover {opacity: 0.8;}
     #map { width:100%; height:50vh; min-height:300px; }
     #list { max-height:40vh; }
 }
+
