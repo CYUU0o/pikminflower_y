@@ -16,12 +16,14 @@
 (記得換行)"></textarea>
 
 <div class="buttons">
-<input type="text" id="filename" placeholder="自訂檔名">
-<input type="file" id="gpxFile" accept=".gpx" style="display:none">
 
 <button id="importBtn" onclick="selectGPX()">匯入 GPX</button>
 <button id="loadBtn" onclick="loadPoints()">載入座標</button>
 <button id="autoBtn" onclick="autoClose()">路徑閉合</button>
+  
+<input type="text" id="filename" placeholder="自訂檔名">
+<input type="file" id="gpxFile" accept=".gpx" style="display:none">
+
 <button id="downloadBtn" onclick="downloadGPX()">下載 GPX</button>
 </div>
 
@@ -45,6 +47,7 @@
 </body>
 
 </html>
+
 
 
 
