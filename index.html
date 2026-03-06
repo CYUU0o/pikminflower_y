@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPX Tool Ultimate</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>GPX Tool Ultimate</h2>
+
+<textarea id="coords" placeholder="25.201220,85.525001
+25.205725,85.525313"></textarea>
+
+<div class="buttons">
+<input type="text" id="filename" placeholder="pikmingpx_YYYY-MM-DD_HH-MM.gpx">
+<input type="file" id="gpxFile" accept=".gpx">
+
+<button id="importBtn" onclick="importGPX()">匯入 GPX</button>
+<button id="loadBtn" onclick="loadPoints()">載入座標</button>
+<button id="autoBtn" onclick="autoClose()">自動閉合</button>
+<button id="downloadBtn" onclick="downloadGPX()">下載 GPX</button>
+</div>
+
+<div class="panel">
+速度 km/h
+<input id="speed" value="5">
+<div>點數: <span id="count">0</span></div>
+<div>距離: <span id="distance">0</span> km</div>
+<div>時間: <span id="time">0</span> 分鐘</div>
+</div>
+
+<div class="layout">
+<div id="map"></div>
+<div id="list"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
