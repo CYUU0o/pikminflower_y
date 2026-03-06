@@ -102,29 +102,42 @@ function refreshMarkers(){
 /* ===== 選單功能 ===== */
 function showMarkerMenu(m){
     removeMarkerMenu();
-    let menu = L.DomUtil.create('div','marker-menu');
-    menu.innerHTML = `
-        <button onclick="enableMove(${markers.indexOf(m)})">移動</button>
-        <button onclick="moveUp(${markers.indexOf(m)})">前移</button>
-        <button onclick="moveDown(${markers.indexOf(m)})">後移</button>
-        <button onclick="deletePoint(${markers.indexOf(m)})">刪除</button>`;
-    document.body.appendChild(menu);
 
-    let pos = map.latLngToContainerPoint(m.getLatLng());
-    menu.style.position="absolute";
-    menu.style.left = pos.x + "px";
-    menu.style.top  = pos.y + "px";
+    // 建立 Leaflet Popup
+    let menuContent = `
+        <div class="marker-menu">
+            <button onclick="enableMove(${markers.indexOf(m)})">移動</button>
+            <button onclick="moveUp(${markers.indexOf(m)})">前移</button>
+            <button onclick="moveDown(${markers.indexOf(m)})">後移</button>
+            <button onclick="deletePoint(${markers.indexOf(m)})">刪除</button>
+        </div>
+    `;
 
-    function removeHandler(){
-        removeMarkerMenu();
-        document.removeEventListener("click", removeHandler);
-    }
-    setTimeout(()=>document.addEventListener("click", removeHandler),10);
+    // 建立 popup 並固定在 Marker 下方
+    let popup = L.popup({
+        closeButton: false,
+        autoClose: false,
+        closeOnClick: false,
+        className: 'marker-popup' // 自訂 CSS
+    })
+    .setLatLng(m.getLatLng())
+    .setContent(menuContent)
+    .openOn(map);
 
-    m.menuDiv = menu;
+    // 記錄目前 popup
+    m.menuPopup = popup;
+    selectedMarker = m;
 }
 
-function removeMarkerMenu(){ document.querySelectorAll('.marker-menu').forEach(e=>e.remove()); }
+/* 移除所有 marker popup */
+function removeMarkerMenu(){
+    markers.forEach(m=>{
+        if(m.menuPopup){
+            map.closePopup(m.menuPopup);
+            m.menuPopup = null;
+        }
+    });
+}
 
 /* ===== Marker 可拖曳 ===== */
 function enableMove(i){
@@ -228,3 +241,4 @@ document.getElementById("speed").oninput = updateStats;
 
 /* ===== 初始化地圖尺寸 ===== */
 window.addEventListener("load", ()=>{ setTimeout(()=>map.invalidateSize(),200); });
+
