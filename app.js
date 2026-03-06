@@ -201,9 +201,13 @@ function selectGPX(){
 }
 
 document.getElementById("gpxFile").addEventListener("change", importGPX);
-
 document.getElementById("speed").oninput = updateStats;
 
+window.addEventListener("load", function(){
+    setTimeout(function(){
+        map.invalidateSize();
+    }, 200);
+});
 
 
 
