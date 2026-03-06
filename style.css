@@ -22,7 +22,7 @@ body {
 
     max-width:1200px;
     margin:0 auto;
-    padding:20px;
+    padding:30px;
 }
 
 
@@ -44,8 +44,8 @@ textarea{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
+    gap: 15px;
+    margin: 25px 0;
 }
 
 
@@ -255,4 +255,5 @@ textarea{
 }
 
 }
+
 
