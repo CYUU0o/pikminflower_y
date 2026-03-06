@@ -29,10 +29,11 @@ body {
 /* =========================
    座標輸入文字框
    ========================= */
-textarea {
-    width: 100%; 
-    height: 120px; 
-    font-size: 13px;
+textarea{
+    width:100%;
+    height:120px;
+    font-size:13px;
+    box-sizing:border-box;
 }
 
 
@@ -227,12 +228,19 @@ body{
     max-width:100%;
     padding:15px;
 }
+   
+/* 手機版座標欄 */
+textarea{
+    font-size:18px;
+    height:140px;
+}
 
 /* 手機版地圖與列表改為直向排列 */
 .layout{
     flex-direction: column;
 }
 
+   
 /* 手機版地圖高度 */
 #map {
         display: block;
@@ -247,3 +255,4 @@ body{
 }
 
 }
+
