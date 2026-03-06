@@ -3,31 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PIKMIN 路徑編輯器</title>
+<title>PIKMIN 路徑編輯/生成器</title>
+
+<!-- Leaflet 地圖樣式 -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- 自訂 CSS -->
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>PIKMIN 路徑編輯器</h2>
+<h2>PIKMIN 路徑編輯/生成器</h2>
 
+<!-- 座標輸入區 -->
 <textarea id="coords" placeholder="25.033150, 121.561395
 25.032771, 121.566084
 (記得換行)"></textarea>
 
+<!-- 按鈕區 -->
 <div class="buttons">
+  <input type="file" id="gpxFile" accept=".gpx" style="display:none">
   
-<input type="file" id="gpxFile" accept=".gpx" style="display:none">
+  <button id="importBtn" onclick="selectGPX()">匯入 GPX</button>
+  <button id="loadBtn" onclick="loadPoints()">載入座標</button>
+  <button id="autoBtn" onclick="autoClose()">路徑閉合</button>
   
-<button id="importBtn" onclick="selectGPX()">匯入 GPX</button>
-<button id="loadBtn" onclick="loadPoints()">載入座標</button>
-<button id="autoBtn" onclick="autoClose()">路徑閉合</button>
-  
-<input type="text" id="filename" placeholder="自訂檔名">
+  <input type="text" id="filename" placeholder="自訂檔名">
 
-<button id="downloadBtn" onclick="downloadGPX()">下載 GPX</button>
+  <button id="downloadBtn" onclick="downloadGPX()">下載 GPX</button>
 </div>
 
+<!-- 統計區 -->
 <div class="panel">
 速度 km/h
 <input id="speed" value="5">
@@ -36,24 +41,18 @@
 <div>時間: <span id="time">0</span> 分鐘</div>
 </div>
 
+<!-- 地圖與列表區 -->
 <div class="layout">
     <div id="map"></div>
     <div id="list"></div>
 </div>
 
+<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- SortableJS -->
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<!-- 自訂 JS -->
 <script src="app.js"></script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
