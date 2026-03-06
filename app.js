@@ -1,19 +1,13 @@
-/* ===============================
-   地圖初始化
-   =============================== */
+/* ===== 地圖初始化 ===== */
 let map = L.map("map").setView([23.7,121],7);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-/* ===============================
-   全域變數
-   =============================== */
+/* ===== 全域變數 ===== */
 let markers = [];
 let line = null;
 let selectedMarker = null;
 
-/* ===============================
-   解析座標輸入
-   =============================== */
+/* ===== 解析座標輸入 ===== */
 function parse() {
     let text = document.getElementById("coords").value.trim();
     let lines = text.split("\n");
@@ -29,17 +23,12 @@ function parse() {
     return pts;
 }
 
-/* ===============================
-   建立 Marker
-   =============================== */
-function createMarker(p, i){
-    let m = L.marker(p, {icon:createIcon(i+1)}).addTo(map);
+/* ===== 建立 Marker ===== */
+function createMarker(p,i){
+    let m = L.marker(p,{icon:createIcon(i+1)}).addTo(map);
 
-    // 點選 Marker 顯示選單
     m.on("click", ()=>{
-        if(selectedMarker && selectedMarker !== m){
-            resetMarker(selectedMarker);
-        }
+        if(selectedMarker && selectedMarker !== m) resetMarker(selectedMarker);
         selectedMarker = m;
         m._icon.classList.add("selected");
         showMarkerMenu(m);
@@ -48,31 +37,22 @@ function createMarker(p, i){
     return m;
 }
 
-/* ===============================
-   Marker 圓點圖示
-   =============================== */
+/* ===== Marker 圓點圖示 ===== */
 function createIcon(n){
     return L.divIcon({className:"", html:`<div class="circle-marker">${n}</div>`, iconSize:[22,22]});
 }
 
-/* ===============================
-   載入座標
-   =============================== */
+/* ===== 載入座標 ===== */
 function loadPoints(){
     clearMap();
     let pts = parse();
-    pts.forEach((p,i)=>{
-        let m = createMarker(p,i);
-        markers.push(m);
-    });
+    pts.forEach((p,i)=>markers.push(createMarker(p,i)));
     drawLine(true);
     buildList();
     updateStats();
 }
 
-/* ===============================
-   更新線段
-   =============================== */
+/* ===== 更新線段 ===== */
 function drawLine(fit=false){
     if(line) map.removeLayer(line);
     let pts = markers.map(m=>m.getLatLng());
@@ -82,9 +62,7 @@ function drawLine(fit=false){
 
 function updateLine(){ drawLine(); updateStats(); }
 
-/* ===============================
-   清空地圖
-   =============================== */
+/* ===== 清空地圖 ===== */
 function clearMap(){
     markers.forEach(m=>map.removeLayer(m));
     markers=[];
@@ -92,9 +70,7 @@ function clearMap(){
     selectedMarker=null;
 }
 
-/* ===============================
-   列表生成 (只保留上移下移)
-   =============================== */
+/* ===== 列表生成 (保留上移/下移) ===== */
 function buildList(){
     let list = document.getElementById("list");
     list.innerHTML = "";
@@ -106,47 +82,39 @@ function buildList(){
             <span class="num">${i+1}</span>
             <span class="coord">${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}</span>
             <span>
-                <button class="up">⬆</button>
-                <button class="down">⬇</button>
+                <button class="marker-list-btn up">⬆</button>
+                <button class="marker-list-btn down">⬇</button>
             </span>`;
         list.appendChild(div);
-
-        div.querySelector(".up").onclick = ()=>{ moveUp(i); };
-        div.querySelector(".down").onclick = ()=>{ moveDown(i); };
+        div.querySelector(".up").onclick = ()=>moveUp(i);
+        div.querySelector(".down").onclick = ()=>moveDown(i);
     });
 }
 
-/* ===============================
-   刷新 Marker 與列表
-   =============================== */
+/* ===== 刷新 Marker 與列表 ===== */
 function refreshMarkers(){
-    markers.forEach((m,i)=>{ m.setIcon(createIcon(i+1)); });
+    markers.forEach((m,i)=>m.setIcon(createIcon(i+1)));
     drawLine();
     buildList();
     updateStats();
 }
 
-/* ===============================
-   選單功能：移動 / 上移 / 下移 / 刪除
-   =============================== */
+/* ===== 選單功能 ===== */
 function showMarkerMenu(m){
     removeMarkerMenu();
-    let menu = L.DomUtil.create('div', 'marker-menu');
+    let menu = L.DomUtil.create('div','marker-menu');
     menu.innerHTML = `
         <button onclick="enableMove(${markers.indexOf(m)})">移動</button>
         <button onclick="moveUp(${markers.indexOf(m)})">前移</button>
         <button onclick="moveDown(${markers.indexOf(m)})">後移</button>
-        <button onclick="deletePoint(${markers.indexOf(m)})">刪除</button>
-    `;
+        <button onclick="deletePoint(${markers.indexOf(m)})">刪除</button>`;
     document.body.appendChild(menu);
 
-    // 位置對齊 Marker
     let pos = map.latLngToContainerPoint(m.getLatLng());
     menu.style.position="absolute";
     menu.style.left = pos.x + "px";
     menu.style.top  = pos.y + "px";
 
-    // 點選其它地方或拖動時移除選單
     function removeHandler(){
         removeMarkerMenu();
         document.removeEventListener("click", removeHandler);
@@ -156,13 +124,9 @@ function showMarkerMenu(m){
     m.menuDiv = menu;
 }
 
-function removeMarkerMenu(){
-    document.querySelectorAll('.marker-menu').forEach(e=>e.remove());
-}
+function removeMarkerMenu(){ document.querySelectorAll('.marker-menu').forEach(e=>e.remove()); }
 
-/* ===============================
-   Marker 可拖曳
-   =============================== */
+/* ===== Marker 可拖曳 ===== */
 function enableMove(i){
     let m = markers[i];
     resetMarker(m);
@@ -176,33 +140,14 @@ function enableMove(i){
     });
 }
 
-/* ===============================
-   Marker 上下移動
-   =============================== */
-function moveUp(i){
-    if(i===0) return;
-    [markers[i-1], markers[i]] = [markers[i], markers[i-1]];
-    refreshMarkers();
-}
+/* ===== Marker 上下移動 ===== */
+function moveUp(i){ if(i===0) return; [markers[i-1], markers[i]]=[markers[i], markers[i-1]]; refreshMarkers(); }
+function moveDown(i){ if(i===markers.length-1) return; [markers[i], markers[i+1]]=[markers[i+1], markers[i]]; refreshMarkers(); }
 
-function moveDown(i){
-    if(i===markers.length-1) return;
-    [markers[i], markers[i+1]] = [markers[i+1], markers[i]];
-    refreshMarkers();
-}
+/* ===== 刪除 Marker ===== */
+function deletePoint(i){ map.removeLayer(markers[i]); markers.splice(i,1); refreshMarkers(); }
 
-/* ===============================
-   刪除 Marker
-   =============================== */
-function deletePoint(i){
-    map.removeLayer(markers[i]);
-    markers.splice(i,1);
-    refreshMarkers();
-}
-
-/* ===============================
-   重置 Marker 狀態
-   =============================== */
+/* ===== 重置 Marker 狀態 ===== */
 function resetMarker(m){
     if(m && m._icon){
         m._icon.classList.remove("moving");
@@ -210,9 +155,7 @@ function resetMarker(m){
     }
 }
 
-/* ===============================
-   路徑閉合
-   =============================== */
+/* ===== 路徑閉合 ===== */
 function autoClose(){
     let pts = parse();
     if(pts.length==0) return;
@@ -222,20 +165,16 @@ function autoClose(){
     document.getElementById("coords").value += `\n${lat},${lon}`;
 }
 
-/* ===============================
-   計算距離與時間
-   =============================== */
-
+/* ===== 計算距離與時間 ===== */
 function calcDistance(){
     let d=0;
     for(let i=1;i<markers.length;i++){
         let a=markers[i-1].getLatLng();
         let b=markers[i].getLatLng();
-        d += map.distance(a,b);
+        d+=map.distance(a,b);
     }
     return d/1000;
 }
-
 function updateStats(){
     document.getElementById("count").innerText = markers.length;
     let dist = calcDistance();
@@ -245,15 +184,11 @@ function updateStats(){
     document.getElementById("time").innerText = minutes.toFixed(1);
 }
 
-/* ===============================
-   GPX 匯入/匯出
-   =============================== */
-
+/* ===== GPX 匯入/匯出 ===== */
 function downloadGPX(){
     let pts = markers.map(m=>m.getLatLng());
     let trk="";
-    pts.forEach(p=>{ trk += `<rtept lat="${p.lat}" lon="${p.lng}"></rtept>\n`; });
-
+    pts.forEach(p=>trk+=`<rtept lat="${p.lat}" lon="${p.lng}"></rtept>\n`);
     let gpx=`<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="GPX Tool" xmlns="http://www.topografix.com/GPX/1/1">
 <rte>
@@ -261,50 +196,35 @@ function downloadGPX(){
 ${trk}
 </rte>
 </gpx>`;
-
-    let filenameInput = document.getElementById("filename").value.trim();
-    let filename = filenameInput ? (filenameInput.toLowerCase().endsWith(".gpx") ? filenameInput : filenameInput+".gpx") : `pikmingpx_${new Date().toISOString().slice(0,19).replace(/:/g,"-")}.gpx`;
-
-    let blob = new Blob([gpx], {type:"application/gpx+xml"});
-    let url = URL.createObjectURL(blob);
-
-    let a=document.createElement("a");
-    a.href=url;
-    a.download=filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    let filenameInput=document.getElementById("filename").value.trim();
+    let filename=filenameInput? (filenameInput.toLowerCase().endsWith(".gpx")?filenameInput:filenameInput+".gpx"):`pikmingpx_${new Date().toISOString().slice(0,19).replace(/:/g,"-")}.gpx`;
+    let blob=new Blob([gpx],{type:"application/gpx+xml"});
+    let url=URL.createObjectURL(blob);
+    let a=document.createElement("a"); a.href=url; a.download=filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
-
 function importGPX(){
-    let file = document.getElementById("gpxFile").files[0];
+    let file=document.getElementById("gpxFile").files[0];
     if(!file) return;
-    let reader = new FileReader();
-    reader.onload = function(e){
-        let text = e.target.result;
-        let parser = new DOMParser();
-        let xml = parser.parseFromString(text,"text/xml");
+    let reader=new FileReader();
+    reader.onload=function(e){
+        let text=e.target.result;
+        let parser=new DOMParser();
+        let xml=parser.parseFromString(text,"text/xml");
         let pts=[];
         xml.querySelectorAll("wpt,rtept,trkpt").forEach(n=>pts.push([parseFloat(n.getAttribute("lat")), parseFloat(n.getAttribute("lon"))]));
         if(pts.length==0){alert("GPX 裡沒有點位"); return;}
-        let txt="";
-        pts.forEach(p=>txt+=p[0]+","+p[1]+"\n");
-        document.getElementById("coords").value = txt.trim();
+        let txt=""; pts.forEach(p=>txt+=p[0]+","+p[1]+"\n");
+        document.getElementById("coords").value=txt.trim();
         loadPoints();
     };
     reader.readAsText(file);
 }
-
 function selectGPX(){ document.getElementById("gpxFile").click(); }
 
 document.getElementById("gpxFile").addEventListener("change", importGPX);
 document.getElementById("speed").oninput = updateStats;
 
-/* ===============================
-   初始化地圖尺寸
-   =============================== */
-
-window.addEventListener("load", ()=>{
-    setTimeout(()=>map.invalidateSize(),200);
-});
+/* ===== 初始化地圖尺寸 ===== */
+window.addEventListener("load", ()=>{ setTimeout(()=>map.invalidateSize(),200); });
