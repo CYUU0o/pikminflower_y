@@ -343,18 +343,25 @@ function deletePoint(i){
 /* ===============================
    路徑閉合
    =============================== */
+
 function autoClose(){
 
     let pts = parse();
 
-    if(pts.length==0) return;
+    if(pts.length === 0) return;
 
-    let s=pts[0];
+    let first = pts[0];
 
-    let lat=(s[0]+0.000001).toFixed(6);
-    let lon=(s[1]+0.000001).toFixed(6);
+    let lat = (first[0] + 0.000001).toFixed(6);
+    let lon = (first[1] + 0.000001).toFixed(6);
 
-    document.getElementById("coords").value += `\n${lat},${lon}`;
+    let textarea = document.getElementById("coords");
+
+    textarea.value += `\n${lat},${lon}`;
+
+    // ⭐ 重新載入地圖
+    loadPoints();
+
 }
 
 /* ===============================
@@ -513,4 +520,5 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
