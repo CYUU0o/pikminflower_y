@@ -96,6 +96,18 @@ button:hover {opacity: 0.8;}
     flex:1;
 }
 
+.marker-menu{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.marker-menu button{
+    padding:6px;
+    font-size:14px;
+    border-radius:6px;
+}
+
 .circle-marker{
     width:20px;
     height:20px;
@@ -136,6 +148,7 @@ body{
 }
 
 }
+
 
 
 
