@@ -64,8 +64,20 @@ button:hover {opacity: 0.8;}
     gap: 10px;
 }
 
-#map {height: 55vh; flex: 2;}
-#list {flex: 1; max-height: 55vh; overflow:auto; border:1px solid #ccc; padding:8px;}
+#map {
+    flex: 2;
+    width: 100%;
+    height: 55vh; /* PC 高度 */
+}
+
+#list {
+    flex: 1;
+    max-height: 55vh;
+    overflow:auto;
+    border:1px solid #ccc;
+    padding:8px;
+
+}
 
 .list-item{
     padding:8px;
@@ -112,16 +124,19 @@ body{
     flex-direction: column;
 }
 
-#map{
-    width:100%;
-    height:50vh;
-}
+#map {
+        display: block;
+        width: 100%;
+        height: 50vh; /* 手機高度 */
+        min-height: 300px; /* 保險 */
+    }
 
 #list{
     max-height:40vh;
 }
 
 }
+
 
 
 
