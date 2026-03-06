@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GPX Tool Ultimate</title>
+<title>PIKMIN 路徑編輯器</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>GPX Tool Ultimate</h2>
+<h2>PIKMIN 路徑編輯器</h2>
 
-<textarea id="coords" placeholder="25.201220,85.525001
-25.205725,85.525313"></textarea>
+<textarea id="coords" placeholder="25.033150, 121.561395
+25.032771, 121.566084
+(記得換行)"></textarea>
 
 <div class="buttons">
-<input type="text" id="filename" placeholder="pikmingpx_YYYY-MM-DD_HH-MM.gpx">
+<input type="text" id="filename" placeholder="pikmingpx_YYYY-MM-DD_HH-MM">
 <input type="file" id="gpxFile" accept=".gpx">
 
 <button id="importBtn" onclick="importGPX()">匯入 GPX</button>
@@ -42,4 +43,5 @@
 <script src="app.js"></script>
 
 </body>
+
 </html>
