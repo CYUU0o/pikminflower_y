@@ -123,6 +123,10 @@ button:hover {opacity: 0.8;}
     font-family: "GenSenMaruGothic", Arial, sans-serif;
 }
 
+.circle-marker.moving{
+    background:#ff7043;
+}
+
 .panel {margin: 10px 0;}
 
 @media(max-width:700px){
@@ -148,6 +152,7 @@ body{
 }
 
 }
+
 
 
 
