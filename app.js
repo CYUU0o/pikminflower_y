@@ -57,11 +57,13 @@ function buildList() {
         let p = m.getLatLng();
         let div = document.createElement("div");
         div.className = "list-item";
-        div.innerHTML = `${i+1} ${p.lat.toFixed(6)}, ${p.lng.toFixed(6)} 
-                        <span>
-                          <button class="up">⬆</button>
-                          <button class="down">⬇</button>
-                        </span>`;
+        div.innerHTML = `
+                 <span class="num">${i+1}</span>
+                 <span class="coord">${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}</span>
+                 <span>
+                 <button class="up">⬆</button>
+                 <button class="down">⬇</button>
+                 </span>`;
         list.appendChild(div);
 
         div.querySelector(".up").onclick = ()=>{
@@ -201,6 +203,7 @@ function selectGPX(){
 document.getElementById("gpxFile").addEventListener("change", importGPX);
 
 document.getElementById("speed").oninput = updateStats;
+
 
 
 
