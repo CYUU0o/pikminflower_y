@@ -53,18 +53,23 @@ function createMarker(p,i){
         draggable:false
     }).addTo(map);
 
-    m.on("click",()=>{
+    m.on("click", function(){
 
-        if(selectedMarker && selectedMarker!==m){
-            resetMarker(selectedMarker);
-        }
+    removeMarkerMenu();
 
-        selectedMarker = m;
+    if(selectedMarker && selectedMarker !== m){
+        resetMarker(selectedMarker);
+    }
 
-        if(m._icon) m._icon.classList.add("selected");
+    selectedMarker = m;
 
-        showMarkerMenu(m);
-    });
+    if(m._icon){
+        m._icon.classList.add("selected");
+    }
+
+    showMarkerMenu(m);
+
+});
 
     return m;
 }
@@ -208,7 +213,6 @@ function showMarkerMenu(m){
             }
 
             selectedMarker=null;
-
             document.removeEventListener("click",closeMenu);
         }
     }
@@ -217,7 +221,7 @@ function showMarkerMenu(m){
 }
 
 function removeMarkerMenu(){
-
+   
     document.querySelectorAll(".marker-menu").forEach(e=>e.remove());
 }
 
@@ -233,24 +237,16 @@ function enableMove(i){
     resetMarker(m);
 
     selectedMarker = m;
-
-    if(m._icon){
-        m._icon.classList.add("moving");
-    }
-
+    m._icon.classList.add("moving");
     m.dragging.enable();
-
-    m.once("dragend",()=>{
+    m.once("dragend", function(){
 
         m.dragging.disable();
 
-        if(m._icon){
-            m._icon.classList.remove("moving");
-        }
-
+        resetMarker(m);
         refreshMarkers();
 
-        selectedMarker=null;
+        selectedMarker = null;
 
     });
 }
@@ -459,3 +455,4 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
