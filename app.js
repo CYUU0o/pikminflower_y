@@ -126,9 +126,19 @@ function enableMove(i){
 
     let m = markers[i];
 
+    // 關閉 popup
+    m.closePopup();
+
+    // 變顏色
+    m.setIcon(L.divIcon({
+        className:"",
+        html:`<div class="circle-marker moving">${i+1}</div>`,
+        iconSize:[22,22]
+    }));
+
     m.dragging.enable();
 
-    m.once("dragend",function(){
+    m.once("dragend", function(){
 
         m.dragging.disable();
 
@@ -137,7 +147,6 @@ function enableMove(i){
     });
 
 }
-
 
 /* =====================================
    Marker 順序控制
@@ -484,3 +493,4 @@ window.addEventListener("load",function(){
     },200);
 
 });
+
