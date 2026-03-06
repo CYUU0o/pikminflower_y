@@ -1,6 +1,4 @@
-/* =========================
-   載入自訂字體
-   ========================= */
+/* 字體設定 */
 @font-face {
     font-family: "GenSenMaruGothic";
     src: url("fonts/GenSenMaruGothicTW-Regular.ttf") format("truetype");
@@ -8,50 +6,34 @@
     font-style: normal;
 }
 
-
-/* =========================
-   網頁整體背景與基礎版面
-   ========================= */
+/* 網頁背景與基本排版 */
 body { 
     background-image:url("bg.png");
     background-size:cover;
     background-position:center;
     background-attachment:fixed;
-
     font-family: "GenSenMaruGothic", Arial, sans-serif;
-
     max-width:1200px;
     margin:0 auto;
-    padding:30px;
+    padding:20px;
 }
 
-
-/* =========================
-   座標輸入文字框
-   ========================= */
-textarea{
-    width:100%;
-    height:120px;
-    font-size:13px;
-    box-sizing:border-box;
+/* 座標輸入框 */
+textarea {
+    width: 100%; 
+    height: 120px; 
+    font-size: 13px;
 }
 
-
-/* =========================
-   上方按鈕區域排版
-   ========================= */
+/* 按鈕排列 */
 .buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin: 25px 0;
+    gap: 10px;
+    margin: 15px 0;
 }
 
-
-/* =========================
-   所有按鈕的基礎樣式
-   ========================= */
 button {
     padding: 14px 23px;
     font-size: 16px;
@@ -62,71 +44,31 @@ button {
     font-family: "GenSenMaruGothic", Arial, sans-serif;
     font-weight: bold;
 }
-
-
-/* =========================
-   按鈕滑鼠懸停效果
-   ========================= */
 button:hover {opacity: 0.8;}
 
-
-/* =========================
-   各功能按鈕顏色設定
-   ========================= */
 #importBtn {background-color: #29b6f6; color:white;}
 #loadBtn {background-color: #66bb6a; color:white;}
 #autoBtn {background-color: #ffa726; color:white;}
 #downloadBtn {background-color: #ef5350; color:white;}
 
-
-/* =========================
-   檔名輸入框
-   ========================= */
 #filename {
     width: 220px;
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    font-family: "GenSenMaruGothic", Arial, sans-serif;
 }
 
-
-/* =========================
-   地圖 + 座標列表 的整體版面
-   ========================= */
+/* 地圖 + 列表排版 */
 .layout {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
+#map { flex:2; width:100%; height:55vh; }
+#list { flex:1; max-height:55vh; overflow:auto; border:1px solid #ccc; padding:8px; }
 
-/* =========================
-   地圖區塊樣式
-   ========================= */
-#map {
-    flex: 2;
-    width: 100%;
-    height: 55vh; /* PC 高度 */
-}
-
-
-/* =========================
-   座標列表區塊
-   ========================= */
-#list {
-    flex: 1;
-    max-height: 55vh;
-    overflow:auto;
-    border:1px solid #ccc;
-    padding:8px;
-
-}
-
-
-/* =========================
-   座標列表單一項目
-   ========================= */
+/* 列表樣式 */
 .list-item{
     padding:8px;
     border-bottom:1px solid #eee;
@@ -134,39 +76,15 @@ button:hover {opacity: 0.8;}
     align-items:center;
     gap:10px;
 }
+.num{ width:28px; font-weight:bold; }
+.coord{ flex:1; }
 
-
-/* =========================
-   座標順序數字
-   ========================= */
-.num{
-    width:28px;
-    font-weight:bold;
-}
-
-
-/* =========================
-   座標文字
-   ========================= */
-.coord{
-    flex:1;
-}
-
-
-/* =========================
-   地圖 marker 點擊後的選單
-   ========================= */
+/* Marker 點擊選單 */
 .marker-menu{
     display:flex;
     gap:4px;
 }
-
-
-/* =========================
-   marker 選單按鈕樣式
-   ========================= */
 .marker-menu button{
-
     font-size:12px;
     padding:4px 8px;
     border:none;
@@ -175,19 +93,11 @@ button:hover {opacity: 0.8;}
     color:white;
     cursor:pointer;
 }
-
-
-/* =========================
-   marker 選單滑鼠懸停效果
-   ========================= */
 .marker-menu button:hover{
     background:#2196f3;
 }
 
-
-/* =========================
-   地圖上的座標圓形 marker
-   ========================= */
+/* Marker 樣式 */
 .circle-marker{
     width:20px;
     height:20px;
@@ -200,60 +110,18 @@ button:hover {opacity: 0.8;}
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "GenSenMaruGothic", Arial, sans-serif;
 }
-
-
-/* =========================
-   marker 進入移動模式時的顏色
-   ========================= */
 .circle-marker.moving{
     background:#ff7043;
 }
 
-
-/* =========================
-   距離 / 時間 / 速度資訊面板
-   ========================= */
+/* 統計面板 */
 .panel {margin: 10px 0;}
 
-
-/* =========================
-   手機版樣式 (700px 以下)
-   ========================= */
+/* 手機樣式調整 */
 @media(max-width:700px){
-
-/* 手機版 body 排版 */
-body{
-    max-width:100%;
-    padding:15px;
+    body{ max-width:100%; padding:15px; }
+    .layout{ flex-direction: column; }
+    #map { display:block; width:100%; height:50vh; min-height:300px; }
+    #list{ max-height:40vh; }
 }
-   
-/* 手機版座標欄 */
-textarea{
-    font-size:18px;
-    height:140px;
-}
-
-/* 手機版地圖與列表改為直向排列 */
-.layout{
-    flex-direction: column;
-}
-
-   
-/* 手機版地圖高度 */
-#map {
-        display: block;
-        width: 100%;
-        height: 50vh; /* 手機高度 */
-        min-height: 300px; /* 保險 */
-    }
-
-/* 手機版座標列表高度 */
-#list{
-    max-height:40vh;
-}
-
-}
-
-
