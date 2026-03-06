@@ -31,7 +31,7 @@ function loadPoints() {
         m.on("drag", updateLine);
         markers.push(m);
     });
-    drawLine();
+    drawLine(true);
     buildList();
     updateStats();
 }
@@ -201,6 +201,7 @@ function selectGPX(){
 document.getElementById("gpxFile").addEventListener("change", importGPX);
 
 document.getElementById("speed").oninput = updateStats;
+
 
 
 
