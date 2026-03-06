@@ -340,6 +340,22 @@ function deletePoint(i){
     refreshMarkers();
 }
 
+/* ===============================
+   路徑閉合
+   =============================== */
+function autoClose(){
+
+    let pts = parse();
+
+    if(pts.length==0) return;
+
+    let s=pts[0];
+
+    let lat=(s[0]+0.000001).toFixed(6);
+    let lon=(s[1]+0.000001).toFixed(6);
+
+    document.getElementById("coords").value += `\n${lat},${lon}`;
+}
 
 /* ===============================
    距離計算
@@ -497,3 +513,4 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
