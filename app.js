@@ -38,15 +38,36 @@ function createIcon(n){
 
 
 /* ===============================
-   建立 Marker (HTML: list-item, CSS: .circle-marker, .selected, .moving)
+   建立 Marker + 81m 範圍圈
+   HTML: list-item
+   CSS : .circle-marker .selected .moving
 =============================== */
 
 function createMarker(p,i){
 
+    /* Marker */
     let m = L.marker(p,{
         icon:createIcon(i+1),
         draggable:false
     }).addTo(map);
+
+    /* 範圍圈 (直徑 81m) */
+    let circle = L.circle(p,{
+        radius:40.5,        // 81m ÷ 2
+        color:"#888",
+        weight:1,
+        dashArray:"5,5",
+        fill:false,
+        interactive:false
+    }).addTo(map);
+
+    /* 圈圈放到 marker 下層 */
+    circle.bringToBack();
+
+    /* 綁定 circle */
+    m.circle = circle;
+
+    /* Marker Click */
 
     m.on("click",function(){
 
@@ -346,15 +367,21 @@ function moveDown(i){
 =============================== */
 
 function deletePoint(i){
-   
+
     removeMarkerMenu();
-   
-    map.removeLayer(markers[i]);
+
+    let m = markers[i];
+
+    if(m.circle){
+        map.removeLayer(m.circle);
+    }
+
+    map.removeLayer(m);
+
     markers.splice(i,1);
 
     refreshMarkers();
 }
-
 
 /* ===============================
    路徑閉合 (HTML: #coords, #map, #list)
@@ -537,6 +564,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
