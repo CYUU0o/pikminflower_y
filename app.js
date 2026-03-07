@@ -31,8 +31,8 @@ function createIcon(n){
     return L.divIcon({
         className: "custom-marker",
         html: `<div class="marker-img">${n}</div>`,
-        iconSize: [25, 25],
-        iconAnchor: [12, 25]
+        iconSize: [26, 26],
+        iconAnchor: [13, 13]
     });
 }
 
@@ -564,6 +564,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
