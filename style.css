@@ -23,8 +23,13 @@ body {
     font-weight: bold;
     color: #000000;
     margin-top: 8px;
-    -webkit-text-stroke: 2px white;
     line-height: 1.5;
+    
+    text-shadow:
+        -2px -2px 0 white,
+         2px -2px 0 white,
+        -2px  2px 0 white,
+         2px  2px 0 white;
 }
 
 .text {
@@ -314,6 +319,7 @@ textarea{
     }
 
 }
+
 
 
 
