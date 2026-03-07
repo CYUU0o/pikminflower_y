@@ -442,29 +442,27 @@ function calcDistance(){
 
 
 /* ===============================
-   更新統計 (HTML: .panel, #speed, #count, #distance, #time)
+   更新統計 (速度、棵數、距離、時間、花瓣數)
 =============================== */
-
 function updateStats(){
 
+    // 棵數
     document.getElementById("count").innerText = markers.length;
 
+    // 距離 (km)
     let dist = calcDistance();
-
     document.getElementById("distance").innerText = dist.toFixed(2);
 
+    // 時間 (分鐘)
     let speed = parseFloat(document.getElementById("speed").value);
-
-    let minutes = (dist/speed)*60;
-
+    let minutes = (dist / speed) * 60;
     document.getElementById("time").innerText = minutes.toFixed(1);
 
+    // 花瓣數
     let level = parseInt(document.getElementById("level").value);
-
     let seconds = minutes * 60;
 
     let divisor;
-
     if(level <= 6){
         divisor = 30;
     }
@@ -483,9 +481,13 @@ function updateStats(){
 
     let petals = seconds / divisor;
 
+    // 無條件進位
     document.getElementById("petals").innerText = Math.ceil(petals);
-
 }
+
+
+    document.getElementById("speed").addEventListener("input", updateStats);
+    document.getElementById("level").addEventListener("input", updateStats);
 
 
 /* ===============================
@@ -602,6 +604,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
