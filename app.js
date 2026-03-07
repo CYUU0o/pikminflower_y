@@ -342,9 +342,10 @@ function moveDown(i){
 =============================== */
 
 function deletePoint(i){
-
+   
+    removeMarkerMenu();
+   
     map.removeLayer(markers[i]);
-
     markers.splice(i,1);
 
     refreshMarkers();
@@ -530,6 +531,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
