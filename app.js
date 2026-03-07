@@ -447,6 +447,32 @@ function updateStats(){
 
     document.getElementById("time").innerText = minutes.toFixed(1);
 
+    let level = parseInt(document.getElementById("level").value);
+
+    let seconds = minutes * 60;
+
+    let divisor;
+
+    if(level <= 6){
+        divisor = 30;
+    }
+    else if(level <= 8){
+        divisor = 20;
+    }
+    else if(level <= 14){
+        divisor = 15;
+    }
+    else if(level <= 54){
+        divisor = 12;
+    }
+    else{
+        divisor = 10;
+    }
+
+    let petals = seconds / divisor;
+
+    document.getElementById("petals").innerText = petals.toFixed(1);
+
 }
 
 
@@ -564,6 +590,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
