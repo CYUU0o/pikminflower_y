@@ -477,7 +477,7 @@ function updateStats(){
 
     let petals = seconds / divisor;
 
-    document.getElementById("petals").innerText = petals.toFixed(1);
+    document.getElementById("petals").innerText = Math.ceil(petals);
 
 }
 
@@ -596,6 +596,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
