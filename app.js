@@ -29,10 +29,10 @@ let selectedMarker = null;  // 當前選中 marker
 
 function createIcon(n){
     return L.divIcon({
-        className: "custom-marker",   // 新 class
+        className: "custom-marker",
         html: `<div class="marker-img">${n}</div>`,
-        iconSize: [25,25],            // 保留原本大小
-        iconAnchor: [10,20]           // 對齊底部中心
+        iconSize: [25, 25],
+        iconAnchor: [12, 30]
     });
 }
 
@@ -537,6 +537,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
