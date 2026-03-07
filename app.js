@@ -71,7 +71,7 @@ function createMarker(p,i){
 =============================== */
 
 function showMarkerMenu(m){
-    removeMarkerMenu();
+    removeMarkerMenu(); // 先移除舊的
 
     let index = markers.indexOf(m);
 
@@ -79,23 +79,35 @@ function showMarkerMenu(m){
     menu.className = "marker-menu";
 
     menu.innerHTML = `
-    <button onclick="enableMove(${index})">移動</button>
-    <button onclick="deletePoint(${index})">刪除</button>
+        <button onclick="enableMove(${index})">移動</button>
+        <button onclick="deletePoint(${index})">刪除</button>
     `;
 
-   menu.addEventListener("click", function(e){
-    e.stopPropagation();
-});
+    // 點 menu 本身不要冒泡到 map
+    menu.addEventListener("click", e => e.stopPropagation());
 
     map.getContainer().appendChild(menu);
 
+    // 固定位置在 marker 下方
     let pos = map.latLngToContainerPoint(m.getLatLng());
-
-    menu.style.position="absolute";
-    menu.style.left = (pos.x - 45) + "px";
-    menu.style.top  = (pos.y + 30) + "px";
+    menu.style.position = "absolute";
+    menu.style.left = (pos.x - menu.offsetWidth/2) + "px";
+    menu.style.top = (pos.y + 30) + "px";
     menu.style.zIndex = 9999;
 
+    // 掛回 marker
+    m.menuDiv = menu;
+}
+
+// map 點擊關閉 menu
+map.on("click", removeMarkerMenu);
+
+function removeMarkerMenu(){
+    if(selectedMarker && selectedMarker.menuDiv){
+        selectedMarker.menuDiv.remove();
+        selectedMarker.menuDiv = null;
+    }
+    // ❌ 不清空 selectedMarker，保留選中狀態
 }
 
 /* ===============================
@@ -532,6 +544,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
