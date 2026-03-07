@@ -179,18 +179,25 @@ button:hover {
 }
 
 /* Marker */
-.circle-marker {
+.custom-marker {
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-    background: #5f8bb3;
-    border: 3px solid white;
-    color: white;
-    font-weight: bold;
-    font-size: 11px;
+    position: relative;
+}
+
+.custom-marker .marker-img {
+    width: 100%;
+    height: 100%;
+    background-image: url('img/marker_1.png'); /* 自訂圖案 */
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;       /* 數字顏色 */
+    font-weight: bold;
+    font-size: 11px;    /* 跟原本 circle-marker 一樣 */
+    text-shadow: 0 0 1px black; /* 讓數字更清楚 */
 }
 
 .circle-marker.selected { background: #3c5c8f; }
@@ -298,4 +305,5 @@ button,
     }
 
 }
+
 
