@@ -46,9 +46,16 @@ body {
 
 /* ===== 文本輸入區 ===== */
 textarea {
-    width: 100%; 
-    height: 120px; 
-    font-size: 13px;
+    width: 100%;              /* 佔滿容器寬度 */
+    max-width: 100%;          /* 避免超出 */
+    height: 120px;            /* 高度 */
+    font-size: 13px;          /* 字體大小 */
+    padding: 8px;             /* 內距 */
+    border-radius: 8px;       /* 圓角 */
+    border: 1px solid #ccc;   /* 邊框 */
+    box-sizing: border-box;   /* 包含 padding 在內計算寬度 */
+    resize: vertical;         /* 只允許垂直調整高度 */
+    font-family: "GenSenMaruGothic", Arial, sans-serif;
 }
 
 /* ===== 主按鈕區 ===== */
@@ -200,12 +207,22 @@ button:hover {opacity: 0.8;}
 
 /* ===== 手機版 ===== */
 @media(max-width:700px){
-    body { max-width:100%; padding:15px; }
-    textarea { width: 100%; }
+    
+    body { 
+        max-width:100%; padding:15px;
+    }
+    
+    textarea {
+        height: 100px;          /* 手機版稍微縮短 */
+        font-size: 12px;        /* 字體稍微小一點 */
+    }
     .layout { flex-direction: column; }
+    
     #map { width:100%; height:50vh; min-height:300px; }
     #list { max-height:40vh; }
+    
 }
+
 
 
 
