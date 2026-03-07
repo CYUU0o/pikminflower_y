@@ -105,6 +105,8 @@ button:hover {opacity: 0.8;}
 /* ===== 清單上下移按鈕 ===== */
 .marker-list-btn {
     display: flex;
+    flex-direction: row;
+    gap: 5px;
     align-items: center;
     justify-content: center;
     font-size: 12px;
@@ -175,6 +177,7 @@ button:hover {opacity: 0.8;}
     #map { width:100%; height:50vh; min-height:300px; }
     #list { max-height:40vh; }
 }
+
 
 
 
