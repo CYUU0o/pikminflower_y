@@ -1,5 +1,5 @@
 /* ===============================
-   地圖初始化
+   地圖初始化 (HTML: #map | CSS: #map)
 =============================== */
 
 let map = L.map("map").setView([23.7,121],7);
@@ -12,17 +12,19 @@ map.on("click", function(){
     removeMarkerMenu();
 });
 
+
 /* ===============================
-   全域變數
+   全域變數 (對應所有 marker、list、panel)
 =============================== */
 
-let markers = [];
-let line = null;
-let currentMenu = null;
-let selectedMarker = null;
+let markers = [];           // 所有 marker
+let line = null;            // 路線 polyline
+let currentMenu = null;     // Marker menu
+let selectedMarker = null;  // 當前選中 marker
+
 
 /* ===============================
-   Marker Icon
+   Marker Icon (CSS: .circle-marker)
 =============================== */
 
 function createIcon(n){
@@ -35,7 +37,7 @@ function createIcon(n){
 
 
 /* ===============================
-   建立 Marker
+   建立 Marker (HTML: list-item, CSS: .circle-marker, .selected, .moving)
 =============================== */
 
 function createMarker(p,i){
@@ -67,12 +69,12 @@ function createMarker(p,i){
 
 
 /* ===============================
-   顯示 Marker 選單
+   顯示 Marker 選單 (HTML: .marker-menu, button | CSS: .marker-menu, .marker-menu button)
 =============================== */
 
 function showMarkerMenu(marker){
 
-    removeMarkerMenu(); // 先關閉舊menu
+    removeMarkerMenu(); // 先關閉舊 menu
 
     selectedMarker = marker;
 
@@ -86,7 +88,7 @@ function showMarkerMenu(marker){
         <button onclick="deletePoint(${index})">刪除</button>
     `;
 
-    // 防止點menu時觸發map click
+    // 防止點 menu 時觸發 map click
     menu.addEventListener("click", e => e.stopPropagation());
 
     map.getContainer().appendChild(menu);
@@ -114,8 +116,9 @@ function removeMarkerMenu(){
     }
 }
 
+
 /* ===============================
-   Marker 可拖曳
+   Marker 可拖曳 (CSS: .moving)
 =============================== */
 
 function enableMove(i){
@@ -149,7 +152,7 @@ function enableMove(i){
 
 
 /* ===============================
-   重置 Marker
+   重置 Marker (CSS: .selected, .moving)
 =============================== */
 
 function resetMarker(m){
@@ -161,7 +164,7 @@ function resetMarker(m){
 
 
 /* ===============================
-   解析座標
+   解析座標 (HTML: #coords)
 =============================== */
 
 function parse(){
@@ -193,7 +196,7 @@ function parse(){
 
 
 /* ===============================
-   載入座標
+   載入座標 (HTML: #coords, #list, CSS: .list-item)
 =============================== */
 
 function loadPoints(){
@@ -220,7 +223,7 @@ function loadPoints(){
 
 
 /* ===============================
-   清空地圖
+   清空地圖 (HTML: #map, #list)
 =============================== */
 
 function clearMap(){
@@ -238,7 +241,7 @@ function clearMap(){
 
 
 /* ===============================
-   畫線
+   畫線 (CSS: L.polyline)
 =============================== */
 
 function drawLine(fit=false){
@@ -259,7 +262,7 @@ function drawLine(fit=false){
 
 
 /* ===============================
-   Marker刷新
+   Marker刷新 (HTML: #list, CSS: .circle-marker)
 =============================== */
 
 function refreshMarkers(){
@@ -278,7 +281,7 @@ function refreshMarkers(){
 
 
 /* ===============================
-   清單建立
+   清單建立 (HTML: #list, CSS: .list-item, .num, .coord, .marker-list-btn)
 =============================== */
 
 function buildList(){
@@ -315,7 +318,7 @@ function buildList(){
 
 
 /* ===============================
-   上下移動
+   上下移動 (HTML: #list)
 =============================== */
 
 function moveUp(i){
@@ -338,7 +341,7 @@ function moveDown(i){
 
 
 /* ===============================
-   刪除
+   刪除 Marker (HTML: #list, CSS: .marker-list-btn)
 =============================== */
 
 function deletePoint(i){
@@ -351,9 +354,10 @@ function deletePoint(i){
     refreshMarkers();
 }
 
+
 /* ===============================
-   路徑閉合
-   =============================== */
+   路徑閉合 (HTML: #coords, #map, #list)
+=============================== */
 
 function autoClose(){
 
@@ -375,8 +379,9 @@ function autoClose(){
 
 }
 
+
 /* ===============================
-   距離計算
+   距離計算 (HTML: #list)
 =============================== */
 
 function calcDistance(){
@@ -397,7 +402,7 @@ function calcDistance(){
 
 
 /* ===============================
-   更新統計
+   更新統計 (HTML: .panel, #speed, #count, #distance, #time)
 =============================== */
 
 function updateStats(){
@@ -418,7 +423,7 @@ function updateStats(){
 
 
 /* ===============================
-   GPX 匯出
+   GPX 匯出 (HTML: #filename, #coords)
 =============================== */
 
 function downloadGPX(){
@@ -467,7 +472,7 @@ ${trk}
 
 
 /* ===============================
-   GPX 匯入
+   GPX 匯入 (HTML: #gpxFile, #coords, #map, #list)
 =============================== */
 
 function importGPX(){
@@ -525,18 +530,9 @@ document.getElementById("speed").oninput=updateStats;
 
 
 /* ===============================
-   地圖尺寸修正
+   地圖尺寸修正 (HTML: #map)
 =============================== */
 
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
-
-
-
-
-
-
-
-
-
