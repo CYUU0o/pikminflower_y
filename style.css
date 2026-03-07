@@ -26,10 +26,14 @@ body {
     line-height: 1.5;
     
     text-shadow:
-        -2px -2px 0 white,
-         2px -2px 0 white,
-        -2px  2px 0 white,
-         2px  2px 0 white;
+    -2px -2px 0 white,
+     2px -2px 0 white,
+    -2px  2px 0 white,
+     2px  2px 0 white,
+    -3px  0px 0 white,
+     3px  0px 0 white,
+     0px -3px 0 white,
+     0px  3px 0 white;
 }
 
 .text {
@@ -319,6 +323,7 @@ textarea{
     }
 
 }
+
 
 
 
