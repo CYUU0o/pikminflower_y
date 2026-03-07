@@ -32,7 +32,7 @@ function createIcon(n){
         className: "custom-marker",
         html: `<div class="marker-img">${n}</div>`,
         iconSize: [25, 25],
-        iconAnchor: [12, 30]
+        iconAnchor: [12, 25]
     });
 }
 
@@ -537,6 +537,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
