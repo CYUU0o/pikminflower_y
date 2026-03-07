@@ -197,7 +197,7 @@ button:hover {
     color: white;       /* 數字顏色 */
     font-weight: bold;
     font-size: 11px;    /* 跟原本 circle-marker 一樣 */
-    text-shadow: 0 0 1px black; /* 讓數字更清楚 */
+    text-shadow: 0 0 1px white; /* 讓數字更清楚 */
 }
 
 .circle-marker.selected { background: #3c5c8f; }
@@ -305,5 +305,6 @@ button,
     }
 
 }
+
 
 
