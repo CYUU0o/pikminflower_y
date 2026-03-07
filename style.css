@@ -28,6 +28,8 @@ body {
     -webkit-text-stroke: 4px white;
     paint-order: stroke fill;
 
+}
+
 .text {
     font-size: 15px;
     font-weight: 500;   /* 不要太細 */
@@ -319,6 +321,7 @@ textarea{
     }
 
 }
+
 
 
 
