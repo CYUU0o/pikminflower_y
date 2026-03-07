@@ -50,14 +50,16 @@ body {
     background: #ffffff;      /* 背景色，可改成你喜歡的 */
     padding: 12px;            /* 內距 */
     border-radius: 8px;       /* 圓角 */
-    font-size: 14px;          /* 字體大小 */
+    font-size: 12px;          /* 字體大小 */
     color: #333;              /* 字體顏色 */
     max-width: 220px;         /* 可選：最大寬度 */
+    line-height: 1.5;
 }
 
 /* 內部 input 調整字體大小 */
 .panel input#speed {
-    font-size: 14px;           /* 調整 input 字體大小 */
+    font-size: 10px;           /* 調整 input 字體大小 */
+    align-items: center;       /* 垂直置中 */
     width: 50px;
     padding: 3px 6px;
     border-radius: 4px;
@@ -325,6 +327,7 @@ textarea{
     }
 
 }
+
 
 
 
