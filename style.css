@@ -224,6 +224,97 @@ button:hover {opacity: 0.8;}
     
 }
 
+/* ------------------------優化 */
+
+/* ===== UI 圓角統一 ===== */
+
+#map {
+    border-radius: 12px;
+}
+
+#list,
+.panel,
+textarea,
+.description {
+    border-radius: 8px;
+}
+
+button,
+.marker-list-btn,
+.marker-menu button {
+    border-radius: 6px;
+}
+
+
+/* ===== 標題框 ===== */
+
+.description{
+    background: rgba(255,255,255,0.9);
+    border: 2px solid #d0d0d0;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+
+/* ===== 統計面板優化 ===== */
+
+.panel{
+    background:#ffffff;
+    border:1px solid #ddd;
+}
+
+
+/* ===== textarea UI 優化 ===== */
+
+textarea{
+    background:#ffffff;
+}
+
+
+/* ===== list item 卡片化 ===== */
+
+.list-item{
+    background:#ffffff;
+    border-radius:6px;
+    border:1px solid #eee;
+    margin-bottom:6px;
+}
+
+.list-item:last-child{
+    border-bottom:1px solid #eee;
+}
+
+
+/* ===== marker menu 優化 ===== */
+
+.marker-menu{
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+
+
+/* ===== 手機版 UI 穩定 ===== */
+
+@media(max-width:700px){
+
+    body{
+        padding:12px;
+    }
+
+    .panel{
+        max-width:100%;
+        width:100%;
+    }
+
+    textarea{
+        width:100%;
+    }
+
+    #list{
+        width:100%;
+    }
+
+}
 
 
 
