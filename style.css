@@ -43,11 +43,6 @@ body {
     margin-top: 8px;
     line-height: 1.5;
 
-    text-shadow:
-        -2px -2px 0 #fff,
-         2px -2px 0 #fff,
-        -2px  2px 0 #fff,
-         2px  2px 0 #fff;
 }
     
 /* 統計區面板樣式 */
@@ -330,6 +325,7 @@ textarea{
     }
 
 }
+
 
 
 
