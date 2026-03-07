@@ -66,7 +66,13 @@ function createMarker(p,i){
 
     /* 綁定 circle */
     m.circle = circle;
-
+   
+    m.on("move", function(e){
+        if(m.circle){
+            m.circle.setLatLng(e.latlng);
+        }
+    });
+   
     /* Marker Click */
 
     m.on("click",function(){
@@ -590,6 +596,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
