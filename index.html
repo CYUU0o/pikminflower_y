@@ -61,12 +61,19 @@
     <!-- ===== 統計面板 (CSS: .panel, .panel input#speed) ===== -->
   
     <div class="panel">
-        時速 km/h
-        <input id="speed" value="18">
-        <div>棵數: <span id="count">0</span></div>
-        <div>長度: <span id="distance">0</span> km</div>
-        <div>時間: <span id="time">0</span> 分鐘</div>
+    時速 km/h
+    <input id="speed" value="18">
+    <div>棵數: <span id="count">0</span></div>
+    <div>長度: <span id="distance">0</span> km</div>
+    <div>時間: <span id="time">0</span> 分鐘</div>
+    <div>
+        玩家等級:
+        <input id="level" type="number" value="55" min="1" style="width:50px">
     </div>
+    <div>
+        1圈消耗花瓣數: <span id="petals">0</span>
+    </div>
+</div>
 
     <!-- ===== 地圖與清單區 (CSS: .layout, #map, #list, .list-item, .num, .coord) ===== -->
   
@@ -92,3 +99,4 @@
 
 </body>
 </html>
+
