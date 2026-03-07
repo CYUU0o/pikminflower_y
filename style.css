@@ -29,9 +29,11 @@ body {
 
 .text {
     font-size: 15px;
+    font-weight: 500;
     color: #333;
     margin-top: 8px;
     line-height: 1.5;
+    -webkit-text-stroke: 1px black;
 }
 
 /* 統計區面板樣式 */
@@ -314,6 +316,7 @@ textarea{
     }
 
 }
+
 
 
 
