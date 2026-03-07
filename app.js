@@ -256,15 +256,21 @@ function loadPoints(){
 
 function clearMap(){
 
-    markers.forEach(m=>map.removeLayer(m));
+    markers.forEach(m=>{
+        if(m.circle){
+            map.removeLayer(m.circle);
+        }
 
-    markers=[];
+        map.removeLayer(m);
+    });
+
+    markers = [];
 
     if(line){
         map.removeLayer(line);
     }
 
-    selectedMarker=null;
+    selectedMarker = null;
 }
 
 
@@ -596,6 +602,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
