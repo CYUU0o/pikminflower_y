@@ -24,14 +24,14 @@ body {
     margin-top: 8px;
     line-height: 1.5;
     text-shadow:
-    -2px -2px 0 #000,
-     2px -2px 0 #000,
-    -2px  2px 0 #000,
-     2px  2px 0 #000,
-    -3px  0px 0 #000,
-     3px  0px 0 #000,
-     0px -3px 0 #000,
-     0px  3px 0 #000;
+     -2px -2px 0 white,
+      2px -2px 0 white,
+     -2px  2px 0 white,
+      2px  2px 0 white,
+     -3px  0px 0 white,
+      3px  0px 0 white,
+      0px -3px 0 white,
+      0px  3px 0 white;
 }
 
 .text {
@@ -41,15 +41,14 @@ body {
     margin-top: 8px;
     line-height: 1.5;
     text-shadow:
-    -2px -2px 0 #000,
-     2px -2px 0 #000,
-    -2px  2px 0 #000,
-     2px  2px 0 #000,
-    -3px  0px 0 #000,
-     3px  0px 0 #000,
-     0px -3px 0 #000,
-     0px  3px 0 #000;
-}
+     -2px -2px 0 white,
+      2px -2px 0 white,
+     -2px  2px 0 white,
+      2px  2px 0 white,
+     -3px  0px 0 white,
+      3px  0px 0 white,
+      0px -3px 0 white,
+      0px  3px 0 white;
 
 /* 統計區面板樣式 */
 .panel {
@@ -331,6 +330,7 @@ textarea{
     }
 
 }
+
 
 
 
