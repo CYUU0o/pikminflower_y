@@ -17,8 +17,15 @@ body {
     padding: 25px;
 }
 
-/* ===== 描述文字 ===== */
+/* ===== 標題文字 ===== */
 .description {
+    font-size: 15px;
+    color: #333;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.text {
     font-size: 15px;
     color: #333;
     margin-top: 8px;
@@ -250,7 +257,6 @@ button,
 
 .description{
     background: rgba(255,255,255,0.9);
-    border: 2px solid #d0d0d0;
     padding: 10px 14px;
     border-radius: 8px;
 }
@@ -315,6 +321,7 @@ textarea{
     }
 
 }
+
 
 
 
