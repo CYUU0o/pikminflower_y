@@ -1,4 +1,6 @@
-/* ===== 全域字體 & 背景 ===== */
+/* ===== 全域設定 ===== */
+
+/* 字體 */
 @font-face {
     font-family: "GenSenMaruGothic";
     src: url("fonts/GenSenMaruGothicTW-Regular.ttf") format("truetype");
@@ -6,6 +8,7 @@
     font-style: normal;
 }
 
+/* Body */
 body { 
     background-image: url("img/bg.png");
     background-size: cover;
@@ -17,7 +20,9 @@ body {
     padding: 25px;
 }
 
+
 /* ===== 標題文字 ===== */
+
 .description{
     font-size:30px;
     font-weight:700;
@@ -28,65 +33,74 @@ body {
     -webkit-text-stroke: 4px white;
     paint-order: stroke fill;
 
-}
+
+/* ===== 一般文字 ===== */
 
 .text {
     font-size: 15px;
-    font-weight: 500;   /* 不要太細 */
+    font-weight: 500;
     color: #333;
     margin-top: 8px;
     line-height: 1.5;
-
 }
-    
-/* 統計區面板樣式 */
+
+
+/* ===== 面板 Panel ===== */
+
+/* 統計區面板 */
 .panel {
-    background: #ffffff;      /* 背景色，可改成你喜歡的 */
-    padding: 12px;            /* 內距 */
-    border-radius: 8px;       /* 圓角 */
-    font-size: 12px;          /* 字體大小 */
-    color: #333;              /* 字體顏色 */
-    max-width: 220px;         /* 可選：最大寬度 */
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #333;
+    max-width: 220px;
     line-height: 1.5;
 }
 
-/* 內部 input 調整字體大小 */
+/* Panel 內 input */
 .panel input#speed {
-    font-size: 10px;           /* 調整 input 字體大小 */
-    align-items: center;       /* 垂直置中 */
+    font-size: 10px;
+    align-items: center;
     width: 50px;
     padding: 3px 6px;
     border-radius: 4px;
     border: 1px solid #ccc;
 }
 
+
 /* ===== 文本輸入區 ===== */
+
 textarea {
-    width: 100%;              /* 佔滿容器寬度 */
-    max-width: 100%;          /* 避免超出 */
-    height: 120px;            /* 高度 */
-    font-size: 13px;          /* 字體大小 */
-    padding: 8px;             /* 內距 */
-    border-radius: 8px;       /* 圓角 */
-    border: 1px solid #ccc;   /* 邊框 */
-    box-sizing: border-box;   /* 包含 padding 在內計算寬度 */
-    resize: vertical;         /* 只允許垂直調整高度 */
+    width: 100%;
+    max-width: 100%;
+    height: 120px;
+    font-size: 13px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: vertical;
     font-family: "GenSenMaruGothic", Arial, sans-serif;
 }
 
+
 /* ===== 主按鈕區 ===== */
+
+/* 按鈕容器 */
 .buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;      /* 水平與垂直間距 */
-    margin: 15px 0; /* 上下間距 */
+    gap: 10px;
+    margin: 15px 0;
 }
 
+/* 基本按鈕 */
 button {
     display: flex;             
-    align-items: center;       /* 垂直置中 */
-    justify-content: center;   /* 水平置中 */
+    align-items: center;
+    justify-content: center;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 6px;
@@ -95,16 +109,20 @@ button {
     transition: 0.2s;
     font-family: "GenSenMaruGothic", Arial, sans-serif;
     font-weight: bold;
-    line-height: normal;       /* 避免文字偏上 */
+    line-height: normal;
 }
 
-button:hover {opacity: 0.8;}
+button:hover {
+    opacity: 0.8;
+}
 
+/* 各按鈕顏色 */
 #importBtn {background-color: #29b6f6; color:white;}
 #loadBtn {background-color: #66bb6a; color:white;}
 #autoBtn {background-color: #ffa726; color:white;}
 #downloadBtn {background-color: #ef5350; color:white;}
 
+/* 檔名輸入框 */
 #filename {
     width: 220px;
     padding: 10px;
@@ -112,13 +130,16 @@ button:hover {opacity: 0.8;}
     border: 1px solid #ccc;
 }
 
-/* ===== 版面配置 ===== */
+
+/* ===== 版面配置 Layout ===== */
+
 .layout {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
+/* 地圖 */
 #map {
     flex: 2;
     width: 100%;
@@ -126,6 +147,7 @@ button:hover {opacity: 0.8;}
     border-radius: 12px;
 }
 
+/* 清單 */
 #list {
     flex: 1;
     max-height: 55vh;
@@ -136,6 +158,10 @@ button:hover {opacity: 0.8;}
     border: 1px solid #ccc;
 }
 
+
+/* ===== 清單 List ===== */
+
+/* 單一項目 */
 .list-item {
     padding: 8px;
     border-bottom: 1px solid #eee;
@@ -144,16 +170,24 @@ button:hover {opacity: 0.8;}
     gap: 10px;
 }
 
-.num { width: 28px; font-weight: bold; }
-.coord { flex: 1; }
+/* 編號 */
+.num { 
+    width: 28px; 
+    font-weight: bold; 
+}
 
+/* 座標 */
+.coord { 
+    flex: 1; 
+}
 
-/* 清單裡每列按鈕的容器，左右排列 */
+/* 清單按鈕區 */
 .list-item span:last-child {
     display: flex;
-    flex-direction: row; /* 水平排列 */
-    gap: 8px;            /* 按鈕間距 */
+    flex-direction: row;
+    gap: 8px;
 }
+
 
 /* ===== 清單上下移按鈕 ===== */
 
@@ -167,8 +201,8 @@ button:hover {opacity: 0.8;}
     padding: 8px 6px;
     border-radius: 4px;
     border: none;
-    background: #f44336;       /* 紅底 */
-    color: white;              /* 白字 */
+    background: #f44336;
+    color: white;
     cursor: pointer;
     line-height: 1.2;
     transition: 0.2s;
@@ -178,7 +212,9 @@ button:hover {opacity: 0.8;}
     background: #d32f2f;
 }
 
-/* ===== Marker 彈出選單 ===== */
+
+/* ===== Marker Menu ===== */
+
 .marker-menu{
     background:white;
     border:1px solid #ccc;
@@ -189,6 +225,7 @@ button:hover {opacity: 0.8;}
     z-index:9999;
 }
 
+/* Menu 按鈕 */
 .marker-menu button{
     font-size:12px;
     background: #926aa6;
@@ -197,16 +234,18 @@ button:hover {opacity: 0.8;}
     cursor:pointer;
 }
 
- .marker-menu button:hover {
+.marker-menu button:hover {
     background: #745285;
 }
 
+
 /* ===== Marker 樣式 ===== */
+
 .circle-marker {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #5f8bb3; /* 普通深藍 */
+    background: #5f8bb3;
     border: 3px solid white;
     color: white;
     font-weight: bold;
@@ -216,13 +255,17 @@ button:hover {opacity: 0.8;}
     justify-content: center;
 }
 
-.circle-marker.selected { background: #3c5c8f; } /* 點選深藍 */
-.circle-marker.moving { background: #ff7043; }     /* 拖曳橘色 */
+/* Marker 狀態 */
+.circle-marker.selected { background: #3c5c8f; }
+.circle-marker.moving { background: #ff7043; }
+
 
 /* ===== 面板 ===== */
-.panel { margin: 10px 0; }
 
-/* ------------------------優化 */
+.panel { 
+    margin: 10px 0; 
+}
+
 
 /* ===== UI 圓角統一 ===== */
 
@@ -244,23 +287,20 @@ button,
 }
 
 
-/* ===== 統計面板優化 ===== */
+/* ===== UI 優化 ===== */
 
+/* Panel */
 .panel{
     background:#ffffff;
     border:1px solid #ddd;
 }
 
-
-/* ===== textarea UI 優化 ===== */
-
+/* textarea */
 textarea{
     background:#ffffff;
 }
 
-
-/* ===== list item 卡片化 ===== */
-
+/* list item 卡片化 */
 .list-item{
     background:#ffffff;
     border-radius:6px;
@@ -272,16 +312,12 @@ textarea{
     border-bottom:1px solid #eee;
 }
 
-
-/* ===== marker menu 優化 ===== */
-
+/* marker menu */
 .marker-menu{
     border-radius:8px;
     box-shadow:0 2px 6px rgba(0,0,0,0.15);
 }
 
-
-/* ===== 手機版 ===== */
 
 /* ===== 手機版 ===== */
 
@@ -291,13 +327,13 @@ textarea{
         padding:12px;
     }
 
-    /* 主版面改成上下排列 */
+    /* 主版面 */
     .layout{
         flex-direction:column;
         gap:12px;
     }
 
-    /* 所有主要區塊統一寬度 */
+    /* 主要區塊 */
     .panel,
     #map,
     #list,
@@ -306,23 +342,21 @@ textarea{
         box-sizing:border-box;
     }
 
+    /* textarea */
     textarea{
         height:100px;
         font-size:12px;
     }
 
+    /* 地圖 */
     #map{
         height:50vh;
         min-height:300px;
     }
 
+    /* 清單 */
     #list{
         max-height:40vh;
     }
 
 }
-
-
-
-
-
