@@ -18,8 +18,8 @@ map.on("click", function(){
 
 let markers = [];
 let line = null;
+let currentMenu = null;
 let selectedMarker = null;
-
 
 /* ===============================
    Marker Icon
@@ -70,11 +70,13 @@ function createMarker(p,i){
    顯示 Marker 選單
 =============================== */
 
-function showMarkerMenu(m){
-    removeMarkerMenu(); // 先移除舊的
+function showMarkerMenu(marker){
+   
+    removeMarkerMenu(); // 先關閉舊menu
+
+    selectedMarker = marker;
 
     let index = markers.indexOf(m);
-
     let menu = document.createElement("div");
     menu.className = "marker-menu";
 
@@ -91,7 +93,7 @@ function showMarkerMenu(m){
     // 固定位置在 marker 下方
     let pos = map.latLngToContainerPoint(m.getLatLng());
     menu.style.position = "absolute";
-    menu.style.left = (pos.x - menu.offsetWidth/2) + "px";
+    menu.style.left = (pos.x - 30) + "px";
     menu.style.top = (pos.y + 30) + "px";
     menu.style.zIndex = 9999;
 
@@ -544,6 +546,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
