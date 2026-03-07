@@ -24,11 +24,11 @@ body {
 /* 標題文字 */
 .description{
     font-size:30px;
-    font-weight:700;
+    font-weight:900;
     color:#000;
     margin-top:8px;
     line-height:1.5;
-    -webkit-text-stroke: 4px white;
+    -webkit-text-stroke: 5px white;
     paint-order: stroke fill;
 }
 
@@ -298,3 +298,4 @@ button,
     }
 
 }
+
