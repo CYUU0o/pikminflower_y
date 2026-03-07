@@ -18,23 +18,15 @@ body {
 }
 
 /* ===== 標題文字 ===== */
-.description {
-    font-size: 30px;
-    font-weight: 700;   /* 加粗 */
-    color: #000;
-    margin-top: 8px;
-    line-height: 1.5;
+.description{
+    font-size:30px;
+    font-weight:700;
+    color:#000;
+    margin-top:8px;
+    line-height:1.5;
 
-    text-shadow:
-        -2px -2px 0 #fff,
-         2px -2px 0 #fff,
-        -2px  2px 0 #fff,
-         2px  2px 0 #fff,
-         0px  3px 0 #fff,
-         3px  0px 0 #fff,
-        -3px  0px 0 #fff,
-         0px -3px 0 #fff;
-}
+    -webkit-text-stroke: 4px white;
+    paint-order: stroke fill;
 
 .text {
     font-size: 15px;
@@ -327,6 +319,7 @@ textarea{
     }
 
 }
+
 
 
 
