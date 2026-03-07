@@ -1,77 +1,94 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PIKMIN 路徑編輯/生成器</title>
-<link rel="icon" type="image/png" sizes="32x32" href="img/img_1.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIKMIN 路徑編輯/生成器</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="img/img_1.png">
 
-<!-- Leaflet 地圖樣式 -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<!-- 自訂 CSS -->
-<link rel="stylesheet" href="style.css">
+    <!-- ===== Leaflet 地圖樣式 ===== -->
+  
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <!-- ===== 自訂 CSS ===== -->
+  
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-<p class="description">
-  PIKMIN 路徑編輯/生成器
-</p>
-  
-<p class="text">
-  因有些程式無法讀取AB同點的路徑，路徑封閉時，最後一點與第一點有微小偏差是正常的<br>
-  <br>
-</p>
 
-<!-- 座標輸入區 -->
-<textarea id="coords" placeholder="25.033150, 121.561395
+    <!-- ===== 標題區 (CSS: .description) ===== -->
+  
+    <p class="description">
+        PIKMIN 路徑編輯/生成器
+    </p>
+
+    <!-- ===== 說明文字區 (CSS: .text) ===== -->
+  
+    <p class="text">
+        因有些程式無法讀取AB同點的路徑，路徑封閉時，最後一點與第一點有微小偏差是正常的<br>
+        <br>
+    </p>
+
+    <!-- ===== 座標輸入區 (CSS: textarea) ===== -->
+  
+    <textarea id="coords" placeholder="25.033150, 121.561395
 25.032771, 121.566084
 (記得換行)"></textarea>
 
-<!-- 按鈕區 -->
-<div class="buttons">
-  <input type="file" id="gpxFile" accept=".gpx" style="display:none">
+    <!-- ===== 按鈕區 (CSS: .buttons, button, #filename) ===== -->
   
-  <button id="importBtn" onclick="selectGPX()">匯入 GPX</button>
-  <button id="loadBtn" onclick="loadPoints()">載入座標</button>
-  <button id="autoBtn" onclick="autoClose()">路徑閉合</button>
+    <div class="buttons">
+      
+        <!-- 匯入 GPX (隱藏 input) -->
+      
+        <input type="file" id="gpxFile" accept=".gpx" style="display:none">
+        
+        <!-- 主按鈕 -->
+      
+        <button id="importBtn" onclick="selectGPX()">匯入 GPX</button>
+        <button id="loadBtn" onclick="loadPoints()">載入座標</button>
+        <button id="autoBtn" onclick="autoClose()">路徑閉合</button>
+        
+        <!-- 自訂檔名 -->
+      
+        <input type="text" id="filename" placeholder="自訂檔名">
+
+        <!-- 下載按鈕 -->
+      
+        <button id="downloadBtn" onclick="downloadGPX()">下載 GPX</button>
+    </div>
+
+    <!-- ===== 統計面板 (CSS: .panel, .panel input#speed) ===== -->
   
-  <input type="text" id="filename" placeholder="自訂檔名">
+    <div class="panel">
+        時速 km/h
+        <input id="speed" value="18">
+        <div>棵數: <span id="count">0</span></div>
+        <div>長度: <span id="distance">0</span> km</div>
+        <div>時間: <span id="time">0</span> 分鐘</div>
+    </div>
 
-  <button id="downloadBtn" onclick="downloadGPX()">下載 GPX</button>
-</div>
+    <!-- ===== 地圖與清單區 (CSS: .layout, #map, #list, .list-item, .num, .coord) ===== -->
+  
+    <div class="layout">
+      
+        <!-- 地圖容器 -->
+      
+        <div id="map"></div>
 
-<!-- 統計區 -->
-<div class="panel">
-時速 km/h
-<input id="speed" value="18">
-<div>棵數: <span id="count">0</span></div>
-<div>長度: <span id="distance">0</span> km</div>
-<div>時間: <span id="time">0</span> 分鐘</div>
-</div>
+        <!-- 座標清單 -->
+      
+        <div id="list"></div>
+    </div>
 
-<!-- 地圖與列表區 -->
-<div class="layout">
-    <div id="map"></div>
-    <div id="list"></div>
-</div>
+    <!-- ===== JS 套件 ===== -->
+  
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<!-- SortableJS -->
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<!-- 自訂 JS -->
-<script src="app.js"></script>
+    <!-- ===== 自訂 JS ===== -->
+  
+    <script src="app.js"></script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
