@@ -71,12 +71,13 @@ function createMarker(p,i){
 =============================== */
 
 function showMarkerMenu(marker){
-   
+
     removeMarkerMenu(); // 先關閉舊menu
 
     selectedMarker = marker;
 
-    let index = markers.indexOf(m);
+    let index = markers.indexOf(marker);
+
     let menu = document.createElement("div");
     menu.className = "marker-menu";
 
@@ -85,36 +86,25 @@ function showMarkerMenu(marker){
         <button onclick="deletePoint(${index})">刪除</button>
     `;
 
-    // 點 menu 本身不要冒泡到 map
+    // 防止點menu時觸發map click
     menu.addEventListener("click", e => e.stopPropagation());
 
     map.getContainer().appendChild(menu);
 
-    // 固定位置在 marker 下方
-    let pos = map.latLngToContainerPoint(m.getLatLng());
+    // 取得 marker 畫面位置
+    let pos = map.latLngToContainerPoint(marker.getLatLng());
+
     menu.style.position = "absolute";
     menu.style.left = (pos.x - 30) + "px";
     menu.style.top = (pos.y + 30) + "px";
     menu.style.zIndex = 9999;
 
-    // 掛回 marker
-    m.menuDiv = menu;
+    marker.menuDiv = menu;
 }
 
-// map 點擊關閉 menu
-map.on("click", removeMarkerMenu);
-
-function removeMarkerMenu(){
-    if(selectedMarker && selectedMarker.menuDiv){
-        selectedMarker.menuDiv.remove();
-        selectedMarker.menuDiv = null;
-    }
-    // ❌ 不清空 selectedMarker，保留選中狀態
-}
-
-/* ===============================
-   刪除選單
-=============================== */
+map.on("click", function(){
+    removeMarkerMenu();
+});
 
 function removeMarkerMenu(){
 
@@ -122,13 +112,7 @@ function removeMarkerMenu(){
         selectedMarker.menuDiv.remove();
         selectedMarker.menuDiv = null;
     }
-
-    if(selectedMarker){
-        resetMarker(selectedMarker);
-        selectedMarker = null;
-    }
 }
-
 
 /* ===============================
    Marker 可拖曳
@@ -546,6 +530,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
