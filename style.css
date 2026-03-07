@@ -107,6 +107,7 @@ button:hover {opacity: 0.8;}
     flex: 2;
     width: 100%;
     height: 55vh;
+    border-radius: 12px;
 }
 
 #list {
@@ -222,6 +223,7 @@ button:hover {opacity: 0.8;}
     #list { max-height:40vh; }
     
 }
+
 
 
 
