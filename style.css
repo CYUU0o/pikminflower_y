@@ -120,6 +120,15 @@ body {
     border: 1px solid #ccc;
 }
 
+.panel input#level {
+    font-size: 10px;
+    align-items: center;
+    width: 50px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
 /* Textarea */
 textarea {
     width: 100%;
@@ -305,6 +314,7 @@ button,
     }
 
 }
+
 
 
 
