@@ -32,7 +32,7 @@ function createIcon(n){
         className: "custom-marker",   // 新 class
         html: `<div class="marker-img">${n}</div>`,
         iconSize: [25,25],            // 保留原本大小
-        iconAnchor: [10,10]           // 對齊底部中心
+        iconAnchor: [10,20]           // 對齊底部中心
     });
 }
 
@@ -537,6 +537,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
