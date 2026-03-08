@@ -286,7 +286,11 @@ function drawLine(fit=false){
 
     let pts = markers.map(m=>m.getLatLng());
 
-    line = L.polyline(pts,{color:"red"}).addTo(map);
+    line = L.polyline(pts,{
+        color:"#ff3333",
+        weight:5,
+        opacity:0.85
+    }).addTo(map);
 
     if(fit && pts.length>0){
         map.fitBounds(line.getBounds());
@@ -604,6 +608,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
