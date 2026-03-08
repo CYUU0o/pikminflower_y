@@ -43,14 +43,14 @@ body {
 
 /* ===== Layout / 版面配置 ===== */
 
-/* 主版面 */
+/* --------------------------------主版面 */
 .layout {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-/* 地圖 */
+/* --------------------------------地圖 */
 #map {
     flex: 2;
     width: 100%;
@@ -97,7 +97,7 @@ body {
 
 /* ===== Components / 元件 ===== */
 
-/* Panel */
+/* --------------------------------Panel */
 .panel {
     background:#ffffff;
     padding: 12px;
@@ -129,7 +129,40 @@ body {
     border: 1px solid #ccc;
 }
 
-/* Textarea */
+/* 第一排 */
+.panel .panel-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+}
+
+/* 分隔線 */
+.panel .panel-divider{
+    height:1px;
+    background:#ddd;
+    margin:6px 0;
+}
+
+/* 第二排統計 */
+.panel .stats{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* 每個統計欄位 */
+.panel .stats div{
+    padding:0 6px;
+    border-left:1px solid #ddd;
+}
+
+/* 第一個不要分隔線 */
+.panel .stats div:first-child{
+    border-left:none;
+}
+
+/* --------------------------------Textarea */
 textarea {
     width: 100%;
     max-width: 100%;
@@ -144,7 +177,7 @@ textarea {
     background:#ffffff;
 }
 
-/* Buttons 容器 */
+/* --------------------------------Buttons 容器 */
 .buttons {
     display: flex;
     flex-wrap: wrap;
@@ -153,7 +186,7 @@ textarea {
     margin: 15px 0;
 }
 
-/* 按鈕基本樣式 */
+/* --------------------------------按鈕基本樣式 */
 button {
     display: flex;             
     align-items: center;
@@ -179,7 +212,7 @@ button:hover {
 #autoBtn {background-color: #ffa726; color:white;}
 #downloadBtn {background-color: #ef5350; color:white;}
 
-/* 檔名輸入框 */
+/* --------------------------------檔名輸入框 */
 #filename {
     width: 220px;
     padding: 10px;
@@ -187,7 +220,7 @@ button:hover {
     border: 1px solid #ccc;
 }
 
-/* Marker */
+/* --------------------------------Marker */
 .custom-marker {
     width: 25px;
     height: 25px;
@@ -314,6 +347,7 @@ button,
     }
 
 }
+
 
 
 
