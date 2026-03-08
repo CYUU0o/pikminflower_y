@@ -100,6 +100,8 @@ body {
 /* --------------------------------Panel */
 .panel {
     background:#ffffff;
+    align-items: center;
+    justify-content: center;
     padding: 12px;
     border-radius: 8px;
     font-size: 12px;
@@ -114,7 +116,7 @@ body {
 .panel input#speed {
     font-size: 10px;
     align-items: center;
-    width: 25px;
+    width: 30px;
     padding: 3px 6px;
     border-radius: 4px;
 }
@@ -122,7 +124,7 @@ body {
 .panel input#level {
     font-size: 10px;
     align-items: center;
-    width: 25px;
+    width: 30px;
     padding: 3px 6px;
     border-radius: 4px;
 }
@@ -341,6 +343,7 @@ button,
     }
 
 }
+
 
 
 
