@@ -104,7 +104,7 @@ body {
     border-radius: 8px;
     font-size: 12px;
     color: #333;
-    max-width: 220px;
+    max-width: 500px;
     line-height: 1.5;
     border:1px solid #ddd;
     margin: 10px 0;
@@ -114,19 +114,17 @@ body {
 .panel input#speed {
     font-size: 10px;
     align-items: center;
-    width: 50px;
+    width: 25px;
     padding: 3px 6px;
     border-radius: 4px;
-    border: 1px solid #ccc;
 }
 
 .panel input#level {
     font-size: 10px;
     align-items: center;
-    width: 50px;
+    width: 25px;
     padding: 3px 6px;
     border-radius: 4px;
-    border: 1px solid #ccc;
 }
 
 /* 第一排 */
@@ -157,10 +155,6 @@ body {
     border-left:1px solid #ddd;
 }
 
-/* 第一個不要分隔線 */
-.panel .stats div:first-child{
-    border-left:none;
-}
 
 /* --------------------------------Textarea */
 textarea {
@@ -347,6 +341,7 @@ button,
     }
 
 }
+
 
 
 
