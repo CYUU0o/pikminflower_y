@@ -521,7 +521,7 @@ ${trk}
     let filename= filenameInput ?
     (filenameInput.endsWith(".gpx")?filenameInput:filenameInput+".gpx")
     :
-    "pikmin_route.gpx";
+    "PIKMIN路徑_${markers.length}棵_${today}.gpx";
 
     let blob=new Blob([gpx],{type:"application/gpx+xml"});
 
@@ -608,6 +608,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
