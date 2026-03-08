@@ -518,10 +518,12 @@ ${trk}
 
     let filenameInput=document.getElementById("filename").value.trim();
 
-    let filename= filenameInput ?
-    (filenameInput.endsWith(".gpx")?filenameInput:filenameInput+".gpx")
+    let today = new Date().toISOString().slice(0,10);
+
+    let filename = filenameInput ?
+    (filenameInput.endsWith(".gpx") ? filenameInput : filenameInput + ".gpx")
     :
-    "PIKMIN路徑_${markers.length}棵_${today}.gpx";
+    `PIKMIN種花路徑_${markers.length}棵_${today}.gpx`;
 
     let blob=new Blob([gpx],{type:"application/gpx+xml"});
 
@@ -608,6 +610,7 @@ document.getElementById("speed").oninput=updateStats;
 window.addEventListener("load",()=>{
     setTimeout(()=>map.invalidateSize(),200);
 });
+
 
 
 
