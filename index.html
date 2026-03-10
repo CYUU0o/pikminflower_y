@@ -27,6 +27,7 @@
     <p class="text">
         因有些程式無法讀取AB同點的路徑，路徑封閉時，最後一點與第一點有微小偏差是正常的<br>
         <br>
+        WPT為JS預設GPX類型，若其他軟體無法支援請選擇TRACK或ROUTE
     </p>
 
     <!-- ===== 座標輸入區 (CSS: textarea) ===== -->
@@ -36,27 +37,41 @@
 (記得換行)"></textarea>
 
     <!-- ===== 按鈕區 (CSS: .buttons, button, #filename) ===== -->
-  
+
+    <div class="panel gpx-panel">
+
+    <!-- 第一行：選擇類型 -->
+    <div class="gpx-type">
+
+        <input type="radio" name="gpxType" id="typeWPT" value="wpt" checked>
+        <label for="typeWPT">WPT (航點，JS預設)</label>
+        <input type="radio" name="gpxType" id="typeRTE" value="rte">
+        <label for="typeRTE">ROUTE(路線)</label>
+        <input type="radio" name="gpxType" id="typeTRK" value="trk">
+        <label for="typeTRK">TRACK(軌跡)</label>
+
+    </div>
+
+    <!-- 第二行：按鈕 + 檔名 -->
+
     <div class="buttons">
-      
+
         <!-- 匯入 GPX (隱藏 input) -->
-      
         <input type="file" id="gpxFile" accept=".gpx" style="display:none">
-        
+
         <!-- 主按鈕 -->
-      
         <button id="importBtn" onclick="selectGPX()">匯入 GPX</button>
         <button id="loadBtn" onclick="loadPoints()">載入座標</button>
         <button id="autoBtn" onclick="autoClose()">路徑閉合</button>
-        
+
         <!-- 自訂檔名 -->
-      
         <input type="text" id="filename" placeholder="自訂檔名">
 
         <!-- 下載按鈕 -->
-      
         <button id="downloadBtn" onclick="downloadGPX()">下載 GPX</button>
     </div>
+
+</div>
 
     <!-- ===== 統計面板 (CSS: .panel, .panel input#speed) ===== -->
   
