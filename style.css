@@ -97,6 +97,69 @@ body {
 
 /* ===== Components / 元件 ===== */
 
+/* -------------------------------按鈕區 */
+
+/* GPX 卡片 */
+.gpx-panel{
+    display:flex;
+    flex-direction:column;   /* 兩行排列 */
+    gap:10px;
+    width:100%;              /* 跟 body 同寬 */
+    max-width:1200px;        /* 對齊 body 最大寬度 */
+    margin:10px auto;        /* 水平置中 */
+    padding:10px;            /* 內距，讓按鈕不貼邊 */
+    box-sizing:border-box;
+}
+
+/* ===== GPX 類型切換 ===== */
+
+.gpx-type{
+    display:flex;
+    justify-content:center;
+}
+
+/* 隱藏原本 radio */
+.gpx-type input{
+    display:none;
+}
+
+/* 按鈕樣式 */
+.gpx-type label{
+    padding:8px 18px;
+    border:1px solid #ccc;
+    background:#f5f5f5;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:13px;
+}
+
+/* 左右圓角 */
+.gpx-type label:first-of-type{
+    border-radius:6px 0 0 6px;
+}
+
+.gpx-type label:last-of-type{
+    border-radius:0 6px 6px 0;
+}
+
+/* 中間不要雙邊框 */
+.gpx-type label + input + label{
+    border-left:none;
+}
+
+/* hover */
+.gpx-type label:hover{
+    background:#e8e8e8;
+}
+
+/* 選中的樣式 */
+.gpx-type input:checked + label{
+    background:#926aa6;
+    color:white;
+    border-color:#926aa6;
+}
+
+
 /* --------------------------------Panel */
 .panel {
     background:#ffffff;
@@ -157,6 +220,12 @@ body {
     border-left:1px solid #ddd;
 }
 
+/* 例外-按鈕區 */
+.gpx-panel{
+    width:100%;
+    max-width: 100%;
+    margin:10px auto;
+}
 
 /* --------------------------------Textarea */
 textarea {
@@ -174,12 +243,11 @@ textarea {
 }
 
 /* --------------------------------Buttons 容器 */
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
 }
 
 /* --------------------------------按鈕基本樣式 */
