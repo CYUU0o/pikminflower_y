@@ -495,25 +495,66 @@ function updateStats(){
 
 
 /* ===============================
-   GPX 匯出 (HTML: #filename, #coords)
+   GPX 匯出 (HTML: #filename)
 =============================== */
 
 function downloadGPX(){
 
     let pts = markers.map(m=>m.getLatLng());
 
+    // 取得使用者選擇的 GPX 類型
+    let type = document.querySelector('input[name="gpxType"]:checked').value;
+
     let trk="";
 
-    pts.forEach(p=>{
-        trk+=`<rtept lat="${p.lat}" lon="${p.lng}"></rtept>\n`;
-    });
+    if(type==="wpt"){
+
+        pts.forEach(p=>{
+            trk+=`<wpt lat="${p.lat}" lon="${p.lng}"></wpt>\n`;
+        });
+
+    }else if(type==="rte"){
+
+        pts.forEach(p=>{
+            trk+=`<rtept lat="${p.lat}" lon="${p.lng}"></rtept>\n`;
+        });
+
+    }else if(type==="trk"){
+
+        pts.forEach(p=>{
+            trk+=`<trkpt lat="${p.lat}" lon="${p.lng}"></trkpt>\n`;
+        });
+
+    }
+
+    // GPX 主體
+    let body="";
+
+    if(type==="wpt"){
+
+        body = trk;
+
+    }else if(type==="rte"){
+
+        body = `<rte>
+<name>Route</name>
+${trk}
+</rte>`;
+
+    }else if(type==="trk"){
+
+        body = `<trk>
+<name>Track</name>
+<trkseg>
+${trk}
+</trkseg>
+</trk>`;
+
+    }
 
     let gpx=`<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="GPX Tool" xmlns="http://www.topografix.com/GPX/1/1">
-<rte>
-<name>Route</name>
-${trk}
-</rte>
+${body}
 </gpx>`;
 
     let filenameInput=document.getElementById("filename").value.trim();
@@ -523,7 +564,7 @@ ${trk}
     let filename = filenameInput ?
     (filenameInput.endsWith(".gpx") ? filenameInput : filenameInput + ".gpx")
     :
-    `PIKMIN種花路徑_${markers.length}棵_${today}.gpx`;
+    `PIKMIN路徑${markers.length}棵_${today}_${type.toUpperCase()}.gpx`
 
     let blob=new Blob([gpx],{type:"application/gpx+xml"});
 
